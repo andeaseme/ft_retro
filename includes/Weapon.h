@@ -1,6 +1,8 @@
 #ifndef WEAPON_H
 # define WEAPON_H
 
+#include "Bullet.h"
+
 class					Weapon
 {
 public:
@@ -8,9 +10,11 @@ public:
 	Weapon(Weapon const &ref);
 	~Weapon();
 
-	Weapon				&operator=(Weapon const &rhs);
-
 	void				attack(void);
+
+	Weapon				&operator=(Weapon const &rhs);
+	int					getCD(void) const;
+	Bullet				*getBullet(void) const;
 
 private:
 	int					_cooldown;

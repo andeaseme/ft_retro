@@ -1,9 +1,12 @@
 #ifndef BULLET_H
 # define BULLET_H
 
+#include "Collidable.h"
+
 class			Bullet : public Collidable
 {
-publici:
+public:
+	Bullet(void);
 	Bullet(float const x, float const y);
 	Bullet(Bullet const &ref);
 	~Bullet(void);
@@ -11,6 +14,6 @@ publici:
 	Bullet		&operator=(Bullet const &rhs);
 	
 	void		move(void);
-}
+};
 
 #endif
