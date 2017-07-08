@@ -21,6 +21,6 @@ private:
 	Collidable		*_obj;
 	unsigned int	_x;
 	unsigned int	_y;
-}
+};
 
 #endif

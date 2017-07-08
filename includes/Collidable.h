@@ -3,6 +3,7 @@
 # define COLLIDABLE_H
 
 # include <string>
+# include "Place.h"
 
 class				Collidable
 {
@@ -20,7 +21,7 @@ public:
 	Place			*getLoc() const;
 	std::string		getSprite() const;
 
-	void			move();
+	virtual void	move();
 
 	Collidable		&operator =(Collidable const &rhs);
 
@@ -31,6 +32,6 @@ protected:
 	float			_y;
 	float			_dx;
 	float			_dy;
-}
+};
 
 #endif
