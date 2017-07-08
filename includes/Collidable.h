@@ -9,10 +9,14 @@ class				Collidable
 public:
 
 	Collidable();
+	Collidable(float const x, float const y);
 	Collidable(Collidable const &ref);
 	~Collidable();
 
+	void			setLocation(Place const *loc);
 	void			setSprite(std::string const sprite);
+	void			setPosition(float const x, float const y);
+	void			setSpeed(float const dx, float const dy);
 	Place			*getLoc() const;
 	std::string		getSprite() const;
 
