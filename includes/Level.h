@@ -10,7 +10,10 @@
 # define BORDER_H 1
 # define ADDCH(y, x, c) mvwaddch(stdscr, y + BORDER_H, x + BORDER_W, c)
 # define ROUND(x) (floor(x + 0.5))
+
 # define EMPTYSPACE ' '
+# define DEATHSPACE '*'
+
 # define DEBUG(x) mvprintw(0, Level::getWidth() + BORDER_W * 2, "%-50s", x)
 
 class					Level

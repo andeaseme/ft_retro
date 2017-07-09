@@ -39,7 +39,7 @@ void			Player::move()
 	DEBUG(" ");
 	if (this->_wep)
 	{
-		if (true == this->_wep->attack(this->_x, this->_y - 2))
+		if (true == this->_wep->attack(this->_x, this->_y - 1))
 			DEBUG("Player fires");
 	}
 }
