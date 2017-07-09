@@ -22,6 +22,8 @@ void		Weapon::attack(float x, float y)
 {
 	Place	*place;
 
+	if (false == _autofire)
+		return ;
 	if (_count < _cooldown) //some condition
 	{
 		_count++;
@@ -51,4 +53,10 @@ int			Weapon::getCD(void) const
 Bullet		*Weapon::getBullet(void) const
 {
 	return(_bullet);
+}
+
+void		Weapon::flipAutofire(void)
+{
+	_autofire = (true == _autofire) ? false : true;
+	_count = _cooldown;
 }
