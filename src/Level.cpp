@@ -4,8 +4,8 @@
 #include "Level.h"
 
 Player			*Level::_player = 0;
-int				Level::_width = 31;
-int				Level::_height = 81;
+int				Level::_width = 61;
+int				Level::_height = 71;
 Place			**Level::_map = new Place*[Level::_width * Level::_height];
 Collidable		**Level::_objects = new Collidable*[500];
 int				Level::_numObjects = 0;
@@ -38,6 +38,8 @@ void			Level::init()
 	initscr();
 	cbreak();
 	noecho();
+	curs_set(false);
+	clear();
 	keypad(stdscr, true);
 }
 
@@ -111,10 +113,20 @@ void			Level::render()
 
 	h = Level::_height;
 	w = Level::_width;
+	clear();
 	for (int i = 0; i < h; ++i)
+	{
 		for (int j = 0; j < w; ++j)
+		{
 			if (Level::_map[i * w + j]->getObj())
+			{
 				mvwaddch(stdscr, i, j, Level::_map[i * w + j]->getObj()->getSprite());
+			}
+			else
+				mvwaddch(stdscr, i, j, '/');
+		}
+	}
+	refresh();
 }
 
 void			Level::loop()
