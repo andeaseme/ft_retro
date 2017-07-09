@@ -29,6 +29,7 @@ public:
 	static void			updateObjects();
 	static void			cleanupObjects();
 	static void			render();
+	static void			loop();
 
 private:
 	static Player		*_player;
@@ -36,6 +37,7 @@ private:
 	static int			_height;
 	static Place		**_map;
 	static Collidable	**_objects;
+	static int			_numObjects;
 };
 
 #endif

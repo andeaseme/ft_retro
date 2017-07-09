@@ -3,7 +3,7 @@
 Bullet::Bullet(void)
 {
 	this->_location = 0;
-	this->_sprite = "O";
+	this->_sprite = 'O';
 	this->_hp = 1;
 	this->_damage = 1;
 	this->_x = -1;

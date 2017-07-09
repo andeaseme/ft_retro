@@ -1,7 +1,7 @@
 
 NAME	= game
 
-SRC		= Collidable.cpp Enemy.cpp Place.cpp Player.cpp 
+SRC		= Collidable.cpp Enemy.cpp Place.cpp Player.cpp main.cpp
 SRC		+= Level.cpp Bullet.cpp Weapon.cpp
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.cpp=.o))
 

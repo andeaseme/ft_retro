@@ -6,13 +6,13 @@ Player::Player() : Collidable::Collidable(
 		3 * Level::getHeight() / 4
 	)
 {
-	this->_sprite = "P";
+	this->_sprite = 'P';
 	this->setSpeed(0.0, 0.0);
 }
 
 Player::Player(float const x, float const y)
 	: Collidable::Collidable(x, y)
 {
-	this->_sprite = "P";
+	this->_sprite = 'P';
 	this->setSpeed(0.0, 0.0);
 }

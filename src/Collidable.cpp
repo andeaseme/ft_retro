@@ -5,7 +5,7 @@
 Collidable::Collidable()
 {
 	this->_location = 0;
-	this->_sprite = "E";
+	this->_sprite = 'E';
 	this->_hp = 1;
 	this->_damage = 0;
 	this->_x = -1;
@@ -23,7 +23,7 @@ Collidable::Collidable(float const x, float const y)
 	place = Level::getPlace((int)x, (int)y);
 	place->setObj(this);
 	this->_location = place;
-	this->_sprite = "E";
+	this->_sprite = 'E';
 	this->_hp = 1;
 	this->_damage = 0;
 	this->_x = x;
@@ -61,7 +61,7 @@ void			Collidable::setLocation(Place *loc)
 	this->_y = loc->getY();
 	if (!this->_ready)
 	{
-		if (this->_sprite != "E")
+		if (this->_sprite != 'E')
 			this->_ready = true;
 	}
 }
@@ -71,7 +71,7 @@ void			Collidable::setLocation(float const x, float const y)
 	this->setLocation(Level::getPlace((int) x, (int) y));
 }
 
-void			Collidable::setSprite(std::string const sprite)
+void			Collidable::setSprite(char const sprite)
 {
 	this->_sprite = sprite;
 	if (!this->_ready && (this->_x == -1 || this->_y == -1))
@@ -99,7 +99,7 @@ Place			*Collidable::getLocation() const
 	return this->_location;
 }
 
-std::string		Collidable::getSprite() const
+char			Collidable::getSprite() const
 {
 	return this->_sprite;
 }

@@ -19,12 +19,12 @@ public:
 
 	void			setLocation(Place *loc); // Adds self to place as well
 	void			setLocation(float const x, float const y);
-	void			setSprite(std::string const sprite);
+	void			setSprite(char const sprite);
 	void			setSpeed(float const dx, float const dy);
 	unsigned int	getHP() const;
 	unsigned int	getDamage() const;
 	Place			*getLocation() const;
-	std::string		getSprite() const;
+	char			getSprite() const;
 	float			getDX() const;
 	float			getDY() const;
 	bool			isReady() const;
@@ -38,7 +38,7 @@ public:
 
 protected:
 	Place			*_location;
-	std::string		_sprite;
+	char			_sprite;
 	unsigned int	_hp;
 	unsigned int	_damage;
 	float			_x;
