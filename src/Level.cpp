@@ -103,7 +103,6 @@ int				Level::getHeight()
 	return Level::_height;
 }
 
-#define ROUND(x) (floor(x + 0.5))
 #define P1 Level::_player
 
 void			Level::updatePlayer()
@@ -112,26 +111,34 @@ void			Level::updatePlayer()
 
 	ch = getch();
 	attron(COLOR_PAIR(3));
-	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), ACS_BULLET);
-	switch (ch)
+	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
+	if (0 == P1->getHP())
 	{
-		case 'w':
-			P1->setLocation(P1->getX(), P1->getY() - 1);
-			break;
-		case 'a':
-			P1->setLocation(floor(P1->getX() - 0.9), P1->getY());
-			break;
-		case 's':
-			P1->setLocation(P1->getX(), floor(P1->getY() + 1.9));
-			break;
-		case 'd':
-			P1->setLocation(floor(P1->getX() + 1.9), P1->getY());
-			break;
-		case ' ':
-			P1->getWeapon()->flipAutofire();
-			break;
+		attron(COLOR_PAIR(2));
+		mvprintw(0, 0, "GAME OVER !");
 	}
-	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+	else
+	{
+		switch (ch)
+		{
+			case 'w':
+				P1->setLocation(P1->getX(), P1->getY() - 1);
+				break;
+			case 'a':
+				P1->setLocation(floor(P1->getX() - 0.9), P1->getY());
+				break;
+			case 's':
+				P1->setLocation(P1->getX(), floor(P1->getY() + 1.9));
+				break;
+			case 'd':
+				P1->setLocation(floor(P1->getX() + 1.9), P1->getY());
+				break;
+			case ' ':
+				P1->getWeapon()->flipAutofire();
+				break;
+		}
+		ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+	}
 	attron(COLOR_PAIR(1));
 }
 
@@ -156,13 +163,16 @@ void			Level::render()
 
 void			Level::loop()
 {
-	for (int i = 0; i < 1000; ++i)
+	Collidable 	*e;
+	for (int i = 0; i < 500; ++i)
 	{
+		if (0 == i % 10)
+			e = new Enemy(i % Level::getWidth(), 0); //test enemy
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(6));
+		std::this_thread::sleep_for(std::chrono::milliseconds(15));
 	}
 }
 
