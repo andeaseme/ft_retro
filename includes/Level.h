@@ -5,6 +5,10 @@
 # include <curses.h>
 # include "Player.h"
 
+# define BORDER_W 2
+# define BORDER_H 1
+# define ADDCH(y, x, c) mvwaddch(stdscr, y + BORDER_H, x + BORDER_W, c)
+
 class					Level
 {
 public:
@@ -38,6 +42,9 @@ private:
 	static Place		**_map;
 	static Collidable	**_objects;
 	static int			_numObjects;
+
+	static void			addBorder();
+	static void			win_resize();
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "Level.h"
 
 Player			*Level::_player = 0;
-int				Level::_width = 61;
+int				Level::_width = 81;
 int				Level::_height = 71;
 Place			**Level::_map = new Place*[Level::_width * Level::_height];
 Collidable		**Level::_objects = new Collidable*[500];
@@ -43,6 +43,13 @@ void			Level::init()
 	curs_set(false);
 	clear();
 	keypad(stdscr, true);
+	nodelay(stdscr, true);
+
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_BLACK); //default
+	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border color
+	attron(COLOR_PAIR(1));
+	addBorder();
 }
 
 void			Level::addObject(Collidable *obj)
@@ -101,9 +108,8 @@ void			Level::updatePlayer()
 {
 	int			ch;
 
-	nodelay(stdscr, true);
 	ch = getch();
-	mvwaddch(stdscr, ROUND(P1->getY()), ROUND(P1->getX()), ACS_BULLET);
+	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), ACS_BULLET);
 	switch (ch)
 	{
 		case 'w':
@@ -122,7 +128,7 @@ void			Level::updatePlayer()
 			P1->getWeapon()->flipAutofire();
 			break;
 	}
-	mvwaddch(stdscr, ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
 }
 
 void			Level::updateObjects()
@@ -140,6 +146,7 @@ void			Level::cleanupObjects()
 
 void			Level::render()
 {
+	win_resize();
 	refresh();
 }
 
@@ -152,5 +159,36 @@ void			Level::loop()
 		Level::cleanupObjects();
 		Level::render();
 		std::this_thread::sleep_for(std::chrono::milliseconds(6));
+	}
+}
+
+void			Level::addBorder()
+{
+	attron(COLOR_PAIR(2));
+	printw("%*c", Level::getWidth() + 2 * BORDER_W, ' ');
+	mvprintw(Level::getHeight() + BORDER_H, 0, "%*c", 
+			Level::getWidth() + 2 * BORDER_W, ' ');
+	for (int i = 1; i < Level::getHeight() + BORDER_H; ++i)
+	{
+		mvprintw(i, 0, "  ");
+		mvprintw(i, Level::getWidth() + BORDER_W, "  ");
+	}
+	attron(COLOR_PAIR(1));
+}
+
+void	Level::win_resize(void)
+{
+	static int	h_prev;
+	static int	w_prev;
+	int			h;
+	int			w;
+
+	getmaxyx(stdscr, h, w);
+	if (h != h_prev || w != w_prev)
+	{
+		h_prev = h;
+		w_prev = w;
+		clear();
+		addBorder();
 	}
 }

@@ -153,8 +153,8 @@ void			Collidable::move()
 	ty = this->_y;
 	if (prevX != (int)this->_x || prevY != (int)this->_y)
 	{
-		mvwaddch(stdscr, prevY, prevX, ACS_BULLET);
-		mvwaddch(stdscr, floor(this->_y + 0.5), floor(this->_x + 0.5), this->_sprite);
+		ADDCH(prevY, prevX, ACS_BULLET);
+		ADDCH(floor(this->_y + 0.5), floor(this->_x + 0.5), this->_sprite);
 		this->setLocation(tx, ty);
 		this->_x = tx;
 		this->_y = ty;
