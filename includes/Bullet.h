@@ -7,14 +7,10 @@ class			Bullet : public Collidable
 {
 public:
 	Bullet(void);
-	Bullet(float const x, float const y);
 	Bullet(Bullet const &ref);
-	~Bullet(void);
 
 	Bullet		&operator=(Bullet const &rhs);
 	
-protected:
-	float		_damage;
 };
 
 #endif

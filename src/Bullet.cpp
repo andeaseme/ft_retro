@@ -20,5 +20,13 @@ Bullet::Bullet(Bullet const &ref)
 
 Bullet		&Bullet::operator=(Bullet const &rhs)
 {
-	
+	this->_location = rhs.getLocation();
+	this->_sprite = rhs.getSprite();
+	this->_hp = rhs.getHP();
+	this->_damage = rhs.getDamage();
+	this->setLocation(this->_location);
+	this->_dx = getDX();
+	this->_dy = getDY();
+	this->_ready = false;
+	return (*this);
 }
