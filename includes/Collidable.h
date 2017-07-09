@@ -18,6 +18,8 @@ public:
 	void			setSprite(std::string const sprite);
 	void			setPosition(float const x, float const y);
 	void			setSpeed(float const dx, float const dy);
+	unsigned int	getHP() const;
+	unsigned int	getDamage() const;
 	Place			*getLoc() const;
 	std::string		getSprite() const;
 	float			getDX() const;
