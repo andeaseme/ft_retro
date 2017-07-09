@@ -1,6 +1,7 @@
 
 #include <chrono>
 #include <thread>
+#include <math.h>
 #include "Level.h"
 
 Player			*Level::_player = 0;
@@ -63,7 +64,8 @@ void			Level::deleteObject(Collidable *obj)
 		if (Level::_objects[i] == obj)
 		{
 			delete Level::_objects[i];
-			Level::_objects[i] = Level::_objects[--(Level::_numObjects)];
+			Level::_numObjects--;
+			Level::_objects[i] = Level::_objects[Level::_numObjects];
 			Level::_objects[Level::_numObjects] = 0;
 			return;
 		}
@@ -106,13 +108,13 @@ void			Level::updatePlayer()
 			P1->setLocation(P1->getX(), P1->getY() - 1);
 			break;
 		case 'a':
-			P1->setLocation(P1->getX() - 1, P1->getY());
+			P1->setLocation(floor(P1->getX() - 0.9), P1->getY());
 			break;
 		case 's':
-			P1->setLocation(P1->getX(), P1->getY() + 1);
+			P1->setLocation(P1->getX(), floor(P1->getY() + 1.9));
 			break;
 		case 'd':
-			P1->setLocation(P1->getX() + 1, P1->getY());
+			P1->setLocation(floor(P1->getX() + 1.9), P1->getY());
 			break;
 		case ' ':
 			P1->getWeapon()->flipAutofire();
@@ -164,6 +166,6 @@ void			Level::loop()
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(40));
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 }

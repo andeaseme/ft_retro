@@ -42,6 +42,8 @@ Collidable::Collidable(Collidable const &ref)
 
 Collidable::~Collidable()
 {
+	if (this->_location)
+		this->_location->setObj(0);
 	this->_location = 0;
 	this->_ready = false;
 }

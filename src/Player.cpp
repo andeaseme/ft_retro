@@ -35,5 +35,5 @@ void			Player::move()
 {
 	Collidable::move();
 	if (this->_wep)
-		this->_wep->attack(this->_x, this->_y - 2);
+		this->_wep->attack(this->_x, this->_y - 1);
 }
