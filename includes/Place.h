@@ -11,6 +11,7 @@ public:
 	Place(Place const &ref);
 	~Place();
 
+	void			setObj(Collidable *obj);
 	Collidable		*getObj() const;
 	unsigned int	getX() const;
 	unsigned int	getY() const;
