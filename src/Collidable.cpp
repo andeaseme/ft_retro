@@ -164,6 +164,7 @@ void			Collidable::move()
 
 void			Collidable::collide(Collidable *ref)
 {
+	attron(COLOR_PAIR(1));
 	this->takeCollideDamage(ref->getCollideDamage());
 	ref->takeCollideDamage(this->getCollideDamage());
 	if (this->getHP() != 0 && ref->getHP() == 0)
@@ -171,6 +172,8 @@ void			Collidable::collide(Collidable *ref)
 		ref->getLocation()->setObj(0);
 		this->setLocation(ref->getLocation());
 	}
+	else if (this->getHP() == 0 && ref->getHP() == 0)
+		ADDCH(ROUND(this->_y), ROUND(this->_x), EMPTYSPACE);
 }
 
 int				Collidable::getCollideDamage() const

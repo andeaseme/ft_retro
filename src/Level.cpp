@@ -48,6 +48,8 @@ void			Level::init()
 	init_pair(1, COLOR_WHITE, COLOR_BLACK); //default
 	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border
 	init_pair(3, COLOR_MAGENTA, COLOR_BLACK); //player
+	init_pair(4, COLOR_CYAN, COLOR_BLACK); //enemy
+	init_pair(4, COLOR_RED, COLOR_BLACK); //mutual death
 	_startScreen();
 	_addBorder();
 	attron(COLOR_PAIR(1));
@@ -150,14 +152,24 @@ void			Level::updateObjects()
 
 void			Level::cleanupObjects()
 {
+	attron(COLOR_PAIR(1));
 	for (int i = 0; i < Level::_numObjects; ++i)
 		if (Level::_objects[i]->getHP() == 0)
+		{
+	if (0 == Level::getPlace(ROUND(_objects[i]->getX()),
+					ROUND(_objects[i]->getY())))
+			{
+				ADDCH(ROUND(_objects[i]->getX()), 
+					ROUND(_objects[i]->getY()), EMPTYSPACE);
+			}
 			Level::deleteObject(Level::_objects[i]);
+		}
 }
 
 void			Level::render()
 {
 	_win_resize();
+	_addBorder(); //patch
 	refresh();
 }
 
@@ -179,7 +191,7 @@ void			Level::loop()
 void			Level::_addBorder()
 {
 	attron(COLOR_PAIR(2));
-	printw("%*c", Level::getWidth() + 2 * BORDER_W, ' ');
+	mvprintw(0, 0, "%*c", Level::getWidth() + 2 * BORDER_W, ' ');
 	mvprintw(Level::getHeight() + BORDER_H, 0, "%*c", 
 			Level::getWidth() + 2 * BORDER_W, ' ');
 	for (int i = 1; i < Level::getHeight() + BORDER_H; ++i)
