@@ -34,6 +34,8 @@ public:
 protected:
 	Place			*_location;
 	std::string		_sprite;
+	unsigned int	_hp;
+	unsigned int	_damage;
 	float			_x;
 	float			_y;
 	float			_dx;

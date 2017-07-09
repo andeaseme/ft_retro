@@ -14,10 +14,6 @@ public:
 	~Enemy();
 
 	void			move();
-
-private:
-	unsigned int	_hp;
-	unsigned int	_damage;
 };
 
 #endif
