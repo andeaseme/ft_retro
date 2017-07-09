@@ -153,8 +153,19 @@ void			Collidable::move()
 	ty = this->_y;
 	if (prevX != (int)ROUND(this->_x) || prevY != (int)ROUND(this->_y))
 	{
+		attron(COLOR_PAIR(1));
 		ADDCH(prevY, prevX, EMPTYSPACE);
 		this->setLocation(tx, ty);
+		switch (this->_sprite)
+		{
+			case '^' :
+				attron(COLOR_PAIR(5));
+				break ;
+			case 'W' :
+				attron(COLOR_PAIR(4));
+				break ;
+				
+		}
 		if (0 != this->_hp)
 			ADDCH(ROUND(this->_y), ROUND(this->_x), this->_sprite);
 		this->_x = tx;

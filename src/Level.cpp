@@ -114,7 +114,7 @@ void			Level::updatePlayer()
 	ch = getch();
 	attron(COLOR_PAIR(3));
 	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
-	if (0 == P1->getHP())
+	if (0 == P1 || 0 == P1->getHP())
 	{
 		attron(COLOR_PAIR(2));
 		mvprintw(0, 0, "GAME OVER !");

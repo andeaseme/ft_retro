@@ -4,7 +4,7 @@
 
 Bullet::Bullet(void) : Collidable::Collidable()
 {
-	this->_sprite = 'O';
+	this->_sprite = '^';
 	this->setSpeed(0.0, -1.0);
 	this->_damage = 1;
 }
@@ -12,7 +12,7 @@ Bullet::Bullet(void) : Collidable::Collidable()
 Bullet::Bullet(float const x, float const y) :
 		Collidable::Collidable(x, y)
 {
-	this->_sprite = 'O';
+	this->_sprite = '^';
 	this->setSpeed(0.0, -1.0);
 	this->_damage = 1;
 }
