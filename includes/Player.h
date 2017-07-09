@@ -14,11 +14,12 @@ public:
 
 	Weapon			*getWeapon();
 	void			switchWeapon(Weapon *ptr);
-
+	int				getScore() const;
 	void			move();
 
 private:
 	Weapon			*_wep;
+	int				_score;
 };
 
 #endif

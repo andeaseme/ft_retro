@@ -10,6 +10,7 @@ Player::Player() : Collidable::Collidable(
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
 	this->_damage = 1;
+	this->_score = 0;
 }
 
 Player::Player(float const x, float const y)
@@ -19,6 +20,7 @@ Player::Player(float const x, float const y)
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
 	this->_damage = 1;
+	this->_score = 0;
 }
 
 Weapon			*Player::getWeapon()
@@ -37,5 +39,5 @@ void			Player::move()
 {
 	Collidable::move();
 	if (this->_wep)
-		if (true == this->_wep->attack(this->_x, this->_y - 1))
+		this->_wep->attack(this->_x, this->_y - 1);
 }
