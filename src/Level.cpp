@@ -47,9 +47,9 @@ void			Level::init()
 	start_color();
 	init_pair(1, COLOR_WHITE, COLOR_BLACK); //default
 	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border
-	init_pair(3, COLOR_MAGENTA, COLOR_BLACK); //player
-	init_pair(4, COLOR_CYAN, COLOR_BLACK); //enemy
-	init_pair(4, COLOR_RED, COLOR_BLACK); //mutual death
+	init_pair(3, COLOR_CYAN, COLOR_BLACK); //player
+	init_pair(4, COLOR_RED, COLOR_BLACK); //enemy
+	init_pair(5, COLOR_YELLOW, COLOR_BLACK); //bullet
 	_startScreen();
 	_addBorder();
 	attron(COLOR_PAIR(1));
@@ -182,7 +182,7 @@ void			Level::loop()
 	while (++i)
 	{
 		if (0 == i % 10)
-			e = new Enemy(i % Level::getWidth(), 1); //test enemy
+			e = new Enemy(std::rand() % Level::getWidth(), 0); //test enemy
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
