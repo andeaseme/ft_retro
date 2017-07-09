@@ -1,22 +1,16 @@
 #include "Bullet.h"
 
-Bullet::Bullet(void) :
-	_location(0),
-	_sprite("O"),
-	_hp(1),
-	_damage(1),
-	_x(-1),
-	_y(-1),
-	_dx(1),
-	_dy(0),
-	_ready(0)
+Bullet::Bullet(void)
 {
-
-}
-
-Bullet::Bullet(float const x, float const y) : Collidable::Collidable(x, y)
-{
-	setSprite("O");
+	this->_location = 0;
+	this->_sprite = "O";
+	this->_hp = 1;
+	this->_damage = 1;
+	this->_x = -1;
+	this->_y = -1;
+	this->_dx = 1;
+	this->_dy = 0;
+	this->_ready = false;
 }
 
 Bullet::Bullet(Bullet const &ref)
@@ -26,5 +20,5 @@ Bullet::Bullet(Bullet const &ref)
 
 Bullet		&Bullet::operator=(Bullet const &rhs)
 {
-
+	
 }

@@ -1,4 +1,5 @@
 #include "Weapon.h"
+#include "Level.h"
 
 Weapon::Weapon(void)
 {
@@ -19,14 +20,19 @@ Weapon::~Weapon(void)
 
 void		Weapon::attack(float x, float y)
 {
-	if (_count < _cooldown)
+	Place	*place;
+
+	if (_count < _cooldown) //some condition
 	{
 		_count++;
 		return ;
 	}
-	_count = 0;
-	Bullet	b = new Bullet(_bullet);
-	b.setLocation(x, y);
+	_count = 0; //some condition
+	Collidable	*b = new Bullet(*_bullet);
+	place = Level::getPlace((int)x, (int)y);
+	place->setObj(b);
+	b->setLocation(place);
+	Level::addObject(b);
 }
 
 Weapon		&Weapon::operator=(Weapon const &rhs)
