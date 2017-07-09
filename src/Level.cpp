@@ -94,6 +94,7 @@ int				Level::getHeight()
 	return Level::_height;
 }
 
+#define ROUND(x) (floor(x + 0.5))
 #define P1 Level::_player
 
 void			Level::updatePlayer()
@@ -102,6 +103,7 @@ void			Level::updatePlayer()
 
 	nodelay(stdscr, true);
 	ch = getch();
+	mvwaddch(stdscr, ROUND(P1->getY()), ROUND(P1->getX()), ACS_BULLET);
 	switch (ch)
 	{
 		case 'w':
@@ -120,7 +122,7 @@ void			Level::updatePlayer()
 			P1->getWeapon()->flipAutofire();
 			break;
 	}
-
+	mvwaddch(stdscr, ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
 }
 
 void			Level::updateObjects()
@@ -149,6 +151,6 @@ void			Level::loop()
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		std::this_thread::sleep_for(std::chrono::milliseconds(6));
 	}
 }
