@@ -164,7 +164,6 @@ void			Collidable::move()
 			case 'W' :
 				attron(COLOR_PAIR(4));
 				break ;
-				
 		}
 		if (0 != this->_hp)
 			ADDCH(ROUND(this->_y), ROUND(this->_x), this->_sprite);

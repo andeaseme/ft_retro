@@ -36,10 +36,6 @@ void			Player::switchWeapon(Weapon *ptr)
 void			Player::move()
 {
 	Collidable::move();
-	DEBUG(" ");
 	if (this->_wep)
-	{
 		if (true == this->_wep->attack(this->_x, this->_y - 1))
-			DEBUG("Player fires");
-	}
 }
