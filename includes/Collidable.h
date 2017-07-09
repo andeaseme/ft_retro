@@ -3,6 +3,7 @@
 # define COLLIDABLE_H
 
 # include <string>
+# include <curses.h>
 # include <iostream>
 
 class				Collidable;

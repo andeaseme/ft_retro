@@ -6,6 +6,7 @@ void
 termination_handler (int signum)
 {
 	endwin();
+	std::cout << "Segmentation Fault I mean piuuuuu piuuuuu..." << std::endl;
 	std::exit(1);
 }
 

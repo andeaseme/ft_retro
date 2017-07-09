@@ -74,8 +74,8 @@ void			Level::deleteObject(Collidable *obj)
 
 Place			*Level::getPlace(unsigned int const x, unsigned int const y)
 {
-	//if (x >= Level::getWidth() || y >= Level::getHeight())
-		//return 0;
+	if (x >= Level::getWidth() || y >= Level::getHeight())
+		return 0;
 	return Level::_map[y * Level::getWidth() + x];
 }
 
@@ -138,23 +138,6 @@ void			Level::cleanupObjects()
 
 void			Level::render()
 {
-	int			h, w;
-
-	h = Level::_height;
-	w = Level::_width;
-	clear();
-	for (int i = 0; i < h; ++i)
-	{
-		for (int j = 0; j < w; ++j)
-		{
-			if (Level::_map[i * w + j]->getObj())
-			{
-				mvwaddch(stdscr, i, j, Level::_map[i * w + j]->getObj()->getSprite());
-			}
-			else
-				mvwaddch(stdscr, i, j, '.');
-		}
-	}
 	refresh();
 }
 

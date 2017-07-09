@@ -9,6 +9,7 @@ Player::Player() : Collidable::Collidable(
 	this->_sprite = 'P';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
+	this->_damage = 1;
 }
 
 Player::Player(float const x, float const y)
@@ -17,6 +18,7 @@ Player::Player(float const x, float const y)
 	this->_sprite = 'P';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
+	this->_damage = 1;
 }
 
 Weapon			*Player::getWeapon()
