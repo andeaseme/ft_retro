@@ -3,6 +3,9 @@
 # define COLLIDABLE_H
 
 # include <string>
+
+class				Collidable;
+
 # include "Place.h"
 
 class				Collidable
@@ -11,16 +14,16 @@ public:
 
 	Collidable(); // Needs to setLocation, setSprite, setSpeed
 	Collidable(float const x, float const y); // Needs to setSprite
-	Collidable(Collidable const &ref); // Needs to setSprite, setLocation. Copies speed, not location
+	Collidable(Collidable const &ref); // Needs to setSprite, setLocation. Copies speed, not location. Avoid
 	virtual			~Collidable();
 
 	void			setLocation(Place *loc); // Adds self to place as well
+	void			setLocation(float const x, float const y);
 	void			setSprite(std::string const sprite);
-	void			setPosition(float const x, float const y);
 	void			setSpeed(float const dx, float const dy);
 	unsigned int	getHP() const;
 	unsigned int	getDamage() const;
-	Place			*getLoc() const;
+	Place			*getLocation() const;
 	std::string		getSprite() const;
 	float			getDX() const;
 	float			getDY() const;
@@ -28,10 +31,10 @@ public:
 
 	virtual void	move();
 	virtual void	collide(Collidable *ref);
-	virtual int		getCollideDamage() const = 0;
-	virtual void	takeCollideDamage(int amount) const = 0;
+	virtual int		getCollideDamage() const;
+	virtual void	takeCollideDamage(int amount);
 
-	Collidable		&operator =(Collidable const &rhs);
+	Collidable		&operator =(Collidable const &rhs); // Best implementation I could do, but still avoid it
 
 protected:
 	Place			*_location;

@@ -1,0 +1,179 @@
+
+#include "Collidable.h"
+#include "Level.h"
+
+Collidable::Collidable()
+{
+	this->_location = 0;
+	this->_sprite = "E";
+	this->_hp = 1;
+	this->_damage = 0;
+	this->_x = -1;
+	this->_y = -1;
+	this->_dx = 0;
+	this->_dy = 0;
+	this->_ready = false;
+	Level::addObject(this);
+}
+
+Collidable::Collidable(float const x, float const y)
+{
+	Place		*place;
+
+	place = Level::getPlace((int)x, (int)y);
+	place->setObj(this);
+	this->_location = place;
+	this->_sprite = "E";
+	this->_hp = 1;
+	this->_damage = 0;
+	this->_x = x;
+	this->_y = y;
+	this->_dx = 0;
+	this->_dy = 0;
+	this->_ready = true;
+	Level::addObject(this);
+}
+
+Collidable::Collidable(Collidable const &ref)
+{
+	*this = ref;
+	Level::addObject(this);
+}
+
+Collidable::~Collidable()
+{
+	this->_location = 0;
+	this->_ready = false;
+}
+
+void			Collidable::setLocation(Place *loc)
+{
+	if (loc->getObj())
+	{
+		this->collide(loc->getObj());
+		return;
+	}
+	if (this->_location)
+		this->_location->setObj(0);
+	loc->setObj(this);
+	this->_location = loc;
+	this->_x = loc->getX();
+	this->_y = loc->getY();
+	if (!this->_ready)
+	{
+		if (this->_sprite != "E")
+			this->_ready = true;
+	}
+}
+
+void			Collidable::setLocation(float const x, float const y)
+{
+	this->setLocation(Level::getPlace((int) x, (int) y));
+}
+
+void			Collidable::setSprite(std::string const sprite)
+{
+	this->_sprite = sprite;
+	if (!this->_ready && (this->_x == -1 || this->_y == -1))
+		this->_ready = true;
+}
+
+void			Collidable::setSpeed(float const dx, float const dy)
+{
+	this->_dx = dx;
+	this->_dy = dy;
+}
+
+unsigned int	Collidable::getHP() const
+{
+	return this->_hp;
+}
+
+unsigned int	Collidable::getDamage() const
+{
+	return this->_damage;
+}
+
+Place			*Collidable::getLocation() const
+{
+	return this->_location;
+}
+
+std::string		Collidable::getSprite() const
+{
+	return this->_sprite;
+}
+
+float			Collidable::getDX() const
+{
+	return this->_dx;
+}
+
+float			Collidable::getDY() const
+{
+	return this->_dy;
+}
+
+bool			Collidable::isReady() const
+{
+	return this->_ready;
+}
+
+void			Collidable::move()
+{
+	int			prevX, prevY;
+	float		tx, ty;
+
+	prevX = (int) this->_x;
+	prevY = (int) this->_y;
+	this->_x += this->_dx;
+	this->_y += this->_dy;
+	tx = this->_x;
+	ty = this->_y;
+	if (prevX != (int)this->_x || prevY != (int)this->_y)
+	{
+		this->setLocation(tx, ty);
+		this->_x = tx;
+		this->_y = ty;
+	}
+}
+
+void			Collidable::collide(Collidable *ref)
+{
+	this->takeCollideDamage(ref->getCollideDamage());
+	ref->takeCollideDamage(this->getCollideDamage());
+	if (this->getHP() != 0 && ref->getHP() == 0)
+	{
+		ref->getLocation()->setObj(0);
+		this->setLocation(ref->getLocation());
+	}
+}
+
+int				Collidable::getCollideDamage() const
+{
+	return this->getDamage();
+}
+
+void			Collidable::takeCollideDamage(int amount)
+{
+	if (amount < 0)
+		return;
+	else if (amount > this->_hp)
+		this->_hp = 0;
+	else
+		this->_hp -= amount;
+}
+
+Collidable		&Collidable::operator =(Collidable const &rhs)
+{
+	this->_location = 0;
+	this->_sprite = rhs.getSprite();
+	this->_hp = rhs.getHP();
+	this->_damage = rhs.getDamage();
+	this->_x = -1;
+	this->_y = -1;
+	this->_dx = rhs.getDX();
+	this->_dy = rhs.getDY();
+	this->_ready = false;
+	return *this;
+}

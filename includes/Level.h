@@ -15,7 +15,7 @@ public:
 
 	static void			addObject(Collidable *obj);
 	static void			deleteObject(Collidable *obj);
-	static Place		*getPlace(unsigned int const x, unsigned int const y) const;
+	static Place		*getPlace(unsigned int const x, unsigned int const y);
 
 private:
 	static int			_width;

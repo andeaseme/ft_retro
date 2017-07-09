@@ -26,6 +26,7 @@ Weapon		&Weapon::operator=(Weapon const &rhs)
 {
 	_cooldown = rhs.getCD();
 	_bullet = rhs.getBullet();
+	return *this;
 }
 
 int			Weapon::getCD(void) const
