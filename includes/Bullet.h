@@ -13,7 +13,8 @@ public:
 
 	Bullet		&operator=(Bullet const &rhs);
 	
-	void		move(void);
+protected:
+	float		_damage;
 };
 
 #endif
