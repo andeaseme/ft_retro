@@ -39,7 +39,8 @@ unsigned int	Place::getY() const
 
 Place			&Place::operator =(Place const &rhs)
 {
-	this->_x = rhs.x;
-	this->y = rhs.y;
-	this->_obj = rhs.obj;
+	this->_x = rhs.getX();
+	this->_y = rhs.getY();
+	this->_obj = rhs.getObj();
+	return *this;
 }

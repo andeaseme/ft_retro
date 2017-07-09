@@ -2,6 +2,8 @@
 #ifndef PLACE_H
 # define PLACE_H
 
+class				Place;
+
 # include "Collidable.h"
 
 class				Place

@@ -1,12 +1,13 @@
 
 NAME	= game
 
-SRC		= Collidable.cpp Bullet.cpp Enemy.cpp Place.cpp Player.cpp Weapon.cpp
+SRC		= Collidable.cpp Enemy.cpp Place.cpp Player.cpp 
+SRC		+= Level.cpp Bullet.cpp Weapon.cpp
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.cpp=.o))
 
 CC		= clang++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
-LDFLAGS	= -Wall -Wextra -Werror
+LDFLAGS	= -Wall -Wextra -Werror -lcurses
 
 INCDIR	= ./includes/
 SRCDIR	= ./src/
