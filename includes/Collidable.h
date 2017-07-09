@@ -3,6 +3,7 @@
 # define COLLIDABLE_H
 
 # include <string>
+# include <iostream>
 
 class				Collidable;
 
@@ -25,6 +26,8 @@ public:
 	unsigned int	getDamage() const;
 	Place			*getLocation() const;
 	char			getSprite() const;
+	float			getX() const;
+	float			getY() const;
 	float			getDX() const;
 	float			getDY() const;
 	bool			isReady() const;

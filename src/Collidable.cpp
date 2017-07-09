@@ -68,7 +68,13 @@ void			Collidable::setLocation(Place *loc)
 
 void			Collidable::setLocation(float const x, float const y)
 {
-	this->setLocation(Level::getPlace((int) x, (int) y));
+	Place		*to;
+
+	to = Level::getPlace((int) x, (int) y);
+	if (!to)
+		this->_hp = 0;
+	else
+		this->setLocation(to);
 }
 
 void			Collidable::setSprite(char const sprite)
@@ -104,6 +110,16 @@ char			Collidable::getSprite() const
 	return this->_sprite;
 }
 
+float			Collidable::getX() const
+{
+	return this->_x;
+}
+
+float			Collidable::getY() const
+{
+	return this->_y;
+}
+
 float			Collidable::getDX() const
 {
 	return this->_dx;
@@ -124,6 +140,8 @@ void			Collidable::move()
 	int			prevX, prevY;
 	float		tx, ty;
 
+	if (this->_hp == 0)
+		return;
 	prevX = (int) this->_x;
 	prevY = (int) this->_y;
 	this->_x += this->_dx;

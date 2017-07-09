@@ -1,11 +1,13 @@
+
 #include "Weapon.h"
 #include "Level.h"
 
 Weapon::Weapon(void)
 {
-	_cooldown = 5;
+	_cooldown = 3;
 	_count = _cooldown;
-	_bullet = new Bullet;
+	_bullet = new Bullet();
+	Level::deleteObject(_bullet);
 }
 
 Weapon::Weapon(Weapon const &ref)
@@ -20,8 +22,6 @@ Weapon::~Weapon(void)
 
 void		Weapon::attack(float x, float y)
 {
-	Place	*place;
-
 	if (false == _autofire)
 		return ;
 	if (_count < _cooldown) //some condition
@@ -31,10 +31,7 @@ void		Weapon::attack(float x, float y)
 	}
 	_count = 0; //some condition
 	Collidable	*b = new Bullet(*_bullet);
-	place = Level::getPlace((int)x, (int)y);
-	place->setObj(b);
-	b->setLocation(place);
-	Level::addObject(b);
+	b->setLocation(x, y);
 }
 
 Weapon		&Weapon::operator=(Weapon const &rhs)

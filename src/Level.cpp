@@ -35,6 +35,7 @@ void			Level::init()
 	for (int i = 0; i < 500; ++i)
 		Level::_objects[i] = 0;
 	Level::_player = new Player();
+	Level::_player->switchWeapon(new Weapon());
 	initscr();
 	cbreak();
 	noecho();
@@ -71,6 +72,8 @@ void			Level::deleteObject(Collidable *obj)
 
 Place			*Level::getPlace(unsigned int const x, unsigned int const y)
 {
+	if (x >= Level::getWidth() || y >= Level::getHeight())
+		return 0;
 	return Level::_map[y * Level::getWidth() + x];
 }
 
@@ -89,9 +92,33 @@ int				Level::getHeight()
 	return Level::_height;
 }
 
+#define P1 Level::_player
+
 void			Level::updatePlayer()
 {
-	// Here goes the input stuff
+	int			ch;
+
+	nodelay(stdscr, true);
+	ch = getch();
+	switch (ch)
+	{
+		case 'w':
+			P1->setLocation(P1->getX(), P1->getY() - 1);
+			break;
+		case 'a':
+			P1->setLocation(P1->getX() - 1, P1->getY());
+			break;
+		case 's':
+			P1->setLocation(P1->getX(), P1->getY() + 1);
+			break;
+		case 'd':
+			P1->setLocation(P1->getX() + 1, P1->getY());
+			break;
+		case ' ':
+			P1->getWeapon()->flipAutofire();
+			break;
+	}
+
 }
 
 void			Level::updateObjects()
@@ -123,7 +150,7 @@ void			Level::render()
 				mvwaddch(stdscr, i, j, Level::_map[i * w + j]->getObj()->getSprite());
 			}
 			else
-				mvwaddch(stdscr, i, j, '/');
+				mvwaddch(stdscr, i, j, '.');
 		}
 	}
 	refresh();
@@ -131,12 +158,12 @@ void			Level::render()
 
 void			Level::loop()
 {
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 1000; ++i)
 	{
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(40));
 	}
 }

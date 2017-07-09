@@ -8,9 +8,6 @@ class			Bullet : public Collidable
 public:
 	Bullet(void);
 	Bullet(Bullet const &ref);
-
-	Bullet		&operator=(Bullet const &rhs);
-	
 };
 
 #endif
