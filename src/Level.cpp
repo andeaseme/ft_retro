@@ -74,8 +74,8 @@ void			Level::deleteObject(Collidable *obj)
 
 Place			*Level::getPlace(unsigned int const x, unsigned int const y)
 {
-	if (x >= Level::getWidth() || y >= Level::getHeight())
-		return 0;
+	//if (x >= Level::getWidth() || y >= Level::getHeight())
+		//return 0;
 	return Level::_map[y * Level::getWidth() + x];
 }
 
