@@ -4,7 +4,7 @@
 
 Weapon::Weapon(void)
 {
-	_cooldown = 3;
+	_cooldown = 2;
 	_count = _cooldown;
 	_autofire = true;
 }

@@ -16,6 +16,7 @@ int				main()
 
 	action.sa_handler = termination_handler;
 	sigaction(SIGSEGV, &action, NULL);
+	std::srand(std::time(NULL));
 	Level::init();
 	Level::loop();
 	endwin();

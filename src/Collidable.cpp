@@ -21,7 +21,7 @@ Collidable::Collidable(float const x, float const y)
 {
 	Place		*place;
 
-	place = Level::getPlace((int)x, (int)y);
+	place = Level::getPlace(ROUND(x), ROUND(y));
 	place->setObj(this);
 	this->_location = place;
 	this->_sprite = 'E';
@@ -73,7 +73,7 @@ void			Collidable::setLocation(float const x, float const y)
 {
 	Place		*to;
 
-	to = Level::getPlace((int) x, (int) y);
+	to = Level::getPlace(ROUND(x), ROUND(y));
 	if (!to)
 		this->_hp = 0;
 	else
