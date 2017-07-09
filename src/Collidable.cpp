@@ -151,7 +151,7 @@ void			Collidable::move()
 	this->_y += this->_dy;
 	tx = this->_x;
 	ty = this->_y;
-	if (prevX != ROUND(this->_x) || prevY != ROUND(this->_y))
+	if (prevX != (int)ROUND(this->_x) || prevY != (int)ROUND(this->_y))
 	{
 		ADDCH(prevY, prevX, EMPTYSPACE);
 		this->setLocation(tx, ty);

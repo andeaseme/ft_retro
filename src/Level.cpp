@@ -124,16 +124,16 @@ void			Level::updatePlayer()
 		switch (ch)
 		{
 			case 'w':
-				P1->setLocation(P1->getX(), P1->getY() - 1);
+				P1->setLocation(P1->getX(), ROUND(P1->getY() - 1.0));
 				break;
 			case 'a':
-				P1->setLocation(floor(P1->getX() - 0.9), P1->getY());
+				P1->setLocation(ROUND(P1->getX() - 1.0), P1->getY());
 				break;
 			case 's':
-				P1->setLocation(P1->getX(), floor(P1->getY() + 1.9));
+				P1->setLocation(P1->getX(), ROUND(P1->getY() + 1.0));
 				break;
 			case 'd':
-				P1->setLocation(floor(P1->getX() + 1.9), P1->getY());
+				P1->setLocation(ROUND(P1->getX() + 1.0), P1->getY());
 				break;
 			case ' ':
 				P1->getWeapon()->flipAutofire();
@@ -175,16 +175,19 @@ void			Level::render()
 
 void			Level::loop()
 {
+	int			i;
+
 	Collidable 	*e;
-	for (int i = 0; i < 500; ++i)
+	i = 0;
+	while (++i)
 	{
 		if (0 == i % 10)
-			e = new Enemy(i % Level::getWidth(), 0); //test enemy
+			e = new Enemy(i % Level::getWidth(), 1); //test enemy
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(15));
+		std::this_thread::sleep_for(std::chrono::milliseconds(25));
 	}
 }
 

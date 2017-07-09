@@ -4,7 +4,7 @@
 Enemy::Enemy() : Collidable::Collidable(0, 0)
 {
 	this->_sprite = 'W';
-	this->setSpeed(0.0, 1.0);
+	this->setSpeed(0.0, 0.5);
 	this->_wep = 0;
 	this->_damage = 1;
 }
@@ -13,7 +13,7 @@ Enemy::Enemy(float const x, float const y) :
 		Collidable::Collidable(x, y)
 {
 	this->_sprite = 'W';
-	this->setSpeed(0.0, 1.0);
+	this->setSpeed(0.0, 0.5);
 	this->_wep = 0;
 	this->_damage = 1;
 }
