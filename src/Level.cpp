@@ -43,13 +43,15 @@ void			Level::init()
 	curs_set(false);
 	clear();
 	keypad(stdscr, true);
-	nodelay(stdscr, true);
 
 	start_color();
 	init_pair(1, COLOR_WHITE, COLOR_BLACK); //default
-	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border color
+	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border
+	init_pair(3, COLOR_MAGENTA, COLOR_BLACK); //player
+	_startScreen();
+	_addBorder();
 	attron(COLOR_PAIR(1));
-	addBorder();
+	nodelay(stdscr, true);
 }
 
 void			Level::addObject(Collidable *obj)
@@ -109,6 +111,7 @@ void			Level::updatePlayer()
 	int			ch;
 
 	ch = getch();
+	attron(COLOR_PAIR(3));
 	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), ACS_BULLET);
 	switch (ch)
 	{
@@ -129,6 +132,7 @@ void			Level::updatePlayer()
 			break;
 	}
 	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+	attron(COLOR_PAIR(1));
 }
 
 void			Level::updateObjects()
@@ -146,7 +150,7 @@ void			Level::cleanupObjects()
 
 void			Level::render()
 {
-	win_resize();
+	_win_resize();
 	refresh();
 }
 
@@ -162,7 +166,7 @@ void			Level::loop()
 	}
 }
 
-void			Level::addBorder()
+void			Level::_addBorder()
 {
 	attron(COLOR_PAIR(2));
 	printw("%*c", Level::getWidth() + 2 * BORDER_W, ' ');
@@ -176,7 +180,7 @@ void			Level::addBorder()
 	attron(COLOR_PAIR(1));
 }
 
-void	Level::win_resize(void)
+void	Level::_win_resize(void)
 {
 	static int	h_prev;
 	static int	w_prev;
@@ -189,6 +193,26 @@ void	Level::win_resize(void)
 		h_prev = h;
 		w_prev = w;
 		clear();
-		addBorder();
+		_addBorder();
 	}
+}
+
+void	Level::_startScreen(void)
+{
+	int		offset;
+	int		i;
+
+	i = Level::getHeight() / 3;
+	offset = (Level::getWidth() - 41) / 2;
+	clear();
+	attron(COLOR_PAIR(1));
+	mvprintw(i    , offset, "    ______                  __          ");
+	mvprintw(i + 1, offset, "   / __/ /_      ________  / /__________");
+	mvprintw(i + 2, offset, "  / /_/ __/     / ___/ _ \\/ __/ ___/ __ \\");
+	mvprintw(i + 3, offset, " / __/ /_      / /  /  __/ /_/ /  / /_/ /");
+	mvprintw(i + 4, offset, "/_/  \\__/_____/_/   \\___/\\__/_/   \\____/");
+	mvprintw(i + 5, offset, "       /______/                          ");
+	mvprintw(Level::getHeight() / 2, (Level::getWidth() - 23) / 2, "Press Any Key to Begin!");
+	refresh();
+	getch();
 }

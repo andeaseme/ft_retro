@@ -43,8 +43,9 @@ private:
 	static Collidable	**_objects;
 	static int			_numObjects;
 
-	static void			addBorder();
-	static void			win_resize();
+	static void			_addBorder();
+	static void			_win_resize();
+	static void			_startScreen();
 };
 
 #endif
