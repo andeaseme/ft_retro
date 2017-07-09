@@ -15,7 +15,7 @@ Player::Player() : Collidable::Collidable(
 Player::Player(float const x, float const y)
 	: Collidable::Collidable(x, y)
 {
-	this->_sprite = 'P';
+	this->_sprite = 'A';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
 	this->_damage = 1;
@@ -36,6 +36,10 @@ void			Player::switchWeapon(Weapon *ptr)
 void			Player::move()
 {
 	Collidable::move();
+	DEBUG(" ");
 	if (this->_wep)
-		this->_wep->attack(this->_x, this->_y - 1);
+	{
+		if (true == this->_wep->attack(this->_x, this->_y - 2))
+			DEBUG("Player fires");
+	}
 }

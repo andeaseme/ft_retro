@@ -7,7 +7,7 @@ OBJ		= $(addprefix $(OBJDIR),$(SRC:.cpp=.o))
 
 CC		= clang++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98 -O3
-LDFLAGS	= -Wall -Wextra -Werror -lcurses
+LDFLAGS	= -Wall -Wextra -Werror -lncurses
 
 INCDIR	= ./includes/
 SRCDIR	= ./src/

@@ -5,7 +5,7 @@
 #include "Level.h"
 
 Player			*Level::_player = 0;
-int				Level::_width = 61;
+int				Level::_width = 81;
 int				Level::_height = 71;
 Place			**Level::_map = new Place*[Level::_width * Level::_height];
 Collidable		**Level::_objects = new Collidable*[500];
@@ -43,6 +43,15 @@ void			Level::init()
 	curs_set(false);
 	clear();
 	keypad(stdscr, true);
+
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_BLACK); //default
+	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border
+	init_pair(3, COLOR_MAGENTA, COLOR_BLACK); //player
+	_startScreen();
+	_addBorder();
+	attron(COLOR_PAIR(1));
+	nodelay(stdscr, true);
 }
 
 void			Level::addObject(Collidable *obj)
@@ -94,35 +103,43 @@ int				Level::getHeight()
 	return Level::_height;
 }
 
-#define ROUND(x) (floor(x + 0.5))
 #define P1 Level::_player
 
 void			Level::updatePlayer()
 {
 	int			ch;
 
-	nodelay(stdscr, true);
 	ch = getch();
-	mvwaddch(stdscr, ROUND(P1->getY()), ROUND(P1->getX()), ACS_BULLET);
-	switch (ch)
+	attron(COLOR_PAIR(3));
+	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
+	if (0 == P1->getHP())
 	{
-		case 'w':
-			P1->setLocation(P1->getX(), P1->getY() - 1);
-			break;
-		case 'a':
-			P1->setLocation(floor(P1->getX() - 0.9), P1->getY());
-			break;
-		case 's':
-			P1->setLocation(P1->getX(), floor(P1->getY() + 1.9));
-			break;
-		case 'd':
-			P1->setLocation(floor(P1->getX() + 1.9), P1->getY());
-			break;
-		case ' ':
-			P1->getWeapon()->flipAutofire();
-			break;
+		attron(COLOR_PAIR(2));
+		mvprintw(0, 0, "GAME OVER !");
 	}
-	mvwaddch(stdscr, ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+	else
+	{
+		switch (ch)
+		{
+			case 'w':
+				P1->setLocation(P1->getX(), P1->getY() - 1);
+				break;
+			case 'a':
+				P1->setLocation(floor(P1->getX() - 0.9), P1->getY());
+				break;
+			case 's':
+				P1->setLocation(P1->getX(), floor(P1->getY() + 1.9));
+				break;
+			case 'd':
+				P1->setLocation(floor(P1->getX() + 1.9), P1->getY());
+				break;
+			case ' ':
+				P1->getWeapon()->flipAutofire();
+				break;
+		}
+		ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+	}
+	attron(COLOR_PAIR(1));
 }
 
 void			Level::updateObjects()
@@ -140,17 +157,72 @@ void			Level::cleanupObjects()
 
 void			Level::render()
 {
+	_win_resize();
 	refresh();
 }
 
 void			Level::loop()
 {
-	for (int i = 0; i < 1000; ++i)
+	Collidable 	*e;
+	for (int i = 0; i < 500; ++i)
 	{
+		if (0 == i % 10)
+			e = new Enemy(i % Level::getWidth(), 0); //test enemy
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(6));
+		std::this_thread::sleep_for(std::chrono::milliseconds(15));
 	}
+}
+
+void			Level::_addBorder()
+{
+	attron(COLOR_PAIR(2));
+	printw("%*c", Level::getWidth() + 2 * BORDER_W, ' ');
+	mvprintw(Level::getHeight() + BORDER_H, 0, "%*c", 
+			Level::getWidth() + 2 * BORDER_W, ' ');
+	for (int i = 1; i < Level::getHeight() + BORDER_H; ++i)
+	{
+		mvprintw(i, 0, "  ");
+		mvprintw(i, Level::getWidth() + BORDER_W, "  ");
+	}
+	attron(COLOR_PAIR(1));
+}
+
+void	Level::_win_resize(void)
+{
+	static int	h_prev;
+	static int	w_prev;
+	int			h;
+	int			w;
+
+	getmaxyx(stdscr, h, w);
+	if (h != h_prev || w != w_prev)
+	{
+		h_prev = h;
+		w_prev = w;
+		clear();
+		_addBorder();
+	}
+}
+
+void	Level::_startScreen(void)
+{
+	int		offset;
+	int		i;
+
+	i = Level::getHeight() / 3;
+	offset = (Level::getWidth() - 41) / 2;
+	clear();
+	attron(COLOR_PAIR(1));
+	mvprintw(i    , offset, "    ______                  __          ");
+	mvprintw(i + 1, offset, "   / __/ /_      ________  / /__________");
+	mvprintw(i + 2, offset, "  / /_/ __/     / ___/ _ \\/ __/ ___/ __ \\");
+	mvprintw(i + 3, offset, " / __/ /_      / /  /  __/ /_/ /  / /_/ /");
+	mvprintw(i + 4, offset, "/_/  \\__/_____/_/   \\___/\\__/_/   \\____/");
+	mvprintw(i + 5, offset, "       /______/                          ");
+	mvprintw(Level::getHeight() / 2, (Level::getWidth() - 23) / 2, "Press Any Key to Begin!");
+	refresh();
+	getch();
 }

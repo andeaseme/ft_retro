@@ -6,8 +6,7 @@ Weapon::Weapon(void)
 {
 	_cooldown = 3;
 	_count = _cooldown;
-	_bullet = new Bullet();
-	Level::deleteObject(_bullet);
+	_autofire = true;
 }
 
 Weapon::Weapon(Weapon const &ref)
@@ -17,39 +16,32 @@ Weapon::Weapon(Weapon const &ref)
 
 Weapon::~Weapon(void)
 {
-	delete _bullet;
 }
 
-void		Weapon::attack(float x, float y)
+bool		Weapon::attack(float x, float y)
 {
 	if (false == _autofire)
-		return ;
+		return (false);
 	if (_count < _cooldown) //some condition
 	{
 		_count++;
-		return ;
+		return (false);
 	}
 	_count = 0; //some condition
-	Collidable	*b = new Bullet(*_bullet);
-	b->setLocation(x, y);
+	Collidable	*b = new Bullet(x, y);
+	return (true);
 }
 
 Weapon		&Weapon::operator=(Weapon const &rhs)
 {
 	_cooldown = rhs.getCD();
 	_count = _cooldown;
-	_bullet = rhs.getBullet();
 	return (*this);
 }
 
 int			Weapon::getCD(void) const
 {
 	return(_cooldown);
-}
-
-Bullet		*Weapon::getBullet(void) const
-{
-	return(_bullet);
 }
 
 void		Weapon::flipAutofire(void)

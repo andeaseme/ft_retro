@@ -145,17 +145,18 @@ void			Collidable::move()
 
 	if (this->_hp == 0)
 		return;
-	prevX = floor(this->_x + 0.5);
-	prevY = floor(this->_y + 0.5);
+	prevX = ROUND(this->_x);
+	prevY = ROUND(this->_y);
 	this->_x += this->_dx;
 	this->_y += this->_dy;
 	tx = this->_x;
 	ty = this->_y;
-	if (prevX != (int)this->_x || prevY != (int)this->_y)
+	if (prevX != ROUND(this->_x) || prevY != ROUND(this->_y))
 	{
-		mvwaddch(stdscr, prevY, prevX, ACS_BULLET);
-		mvwaddch(stdscr, floor(this->_y + 0.5), floor(this->_x + 0.5), this->_sprite);
+		ADDCH(prevY, prevX, EMPTYSPACE);
 		this->setLocation(tx, ty);
+		if (0 != this->_hp)
+			ADDCH(ROUND(this->_y), ROUND(this->_x), this->_sprite);
 		this->_x = tx;
 		this->_y = ty;
 	}

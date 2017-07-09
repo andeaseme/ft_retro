@@ -10,17 +10,15 @@ public:
 	Weapon(Weapon const &ref);
 	~Weapon();
 
-	void				attack(float x, float y);
+	bool				attack(float x, float y);
 
 	Weapon				&operator=(Weapon const &rhs);
 	int					getCD(void) const;
-	Bullet				*getBullet(void) const;
 	void				flipAutofire(void);
 
 protected:
 	int					_cooldown;
 	int					_count;
-	Bullet				*_bullet;
 	bool				_autofire;
 };
 
