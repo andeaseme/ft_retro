@@ -182,6 +182,9 @@ void			Level::render()
 {
 	_win_resize();
 	_addBorder(); //patch
+	attron(COLOR_PAIR(2));
+	mvprintw(0, BORDER_W, "Score: %10i", Level::_player->getScore());
+	attron(COLOR_PAIR(1));
 	refresh();
 }
 

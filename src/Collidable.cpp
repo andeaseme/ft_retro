@@ -185,6 +185,11 @@ void			Collidable::collide(Collidable *ref)
 		ref->getLocation()->setObj(0);
 		this->setLocation(ref->getLocation());
 	}
+	else if (this->getHP() == 0 && ref->getHP() == 0)
+	{
+		ADDCH(ROUND(this->_y), ROUND(this->_x), EMPTYSPACE);
+		Level::getPlayer()->addScore();
+	}
 	else
 		ADDCH(ROUND(this->_y), ROUND(this->_x), EMPTYSPACE);
 }

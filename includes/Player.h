@@ -17,7 +17,8 @@ public:
 	void			loseLife();
 	void			gainLife();
 	void			switchWeapon(Weapon *ptr);
-
+	int				getScore() const;
+	void			addScore();
 	void			move();
 
 private:
