@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <math.h>
+#include <fstream>
 #include "Level.h"
 #include "PWeapon.h"
 
@@ -11,6 +12,7 @@ int				Level::_height = 71;
 Place			**Level::_map = new Place*[Level::_width * Level::_height];
 Collidable		**Level::_objects = new Collidable*[500];
 int				Level::_numObjects = 0;
+int				Level::_highscore = 0;
 
 Level::Level()
 {
@@ -38,6 +40,7 @@ void			Level::init()
 		Level::_objects[i] = 0;
 	Level::_player = new Player();
 	Level::_player->switchWeapon(new PWeapon());
+	Level::_setHighscore();
 	initscr();
 	cbreak();
 	noecho();
@@ -165,6 +168,7 @@ void			Level::cleanupObjects()
 				ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
 				if (Level::getPlayer()->getLives() <= 0)
 				{
+					Level::_saveHighscore();
 					Level::_endScreen();
 					endwin();
 					std::cout << "Game Over!" << std::endl;
@@ -186,7 +190,7 @@ void			Level::render()
 	_win_resize();
 	_addBorder(); //patch
 	attron(COLOR_PAIR(2));
-	mvprintw(0, BORDER_W, "Score: %-10i Lives: %-10i", Level::_player->getScore(), Level::_player->getLives());
+	mvprintw(0, BORDER_W, "High Score: %-10i Score: %-10i Lives: %-10i", Level::_highscore, Level::_player->getScore(), Level::_player->getLives());
 	attron(COLOR_PAIR(1));
 	refresh();
 }
@@ -291,14 +295,29 @@ void	Level::_endScreen(void)
 	mvprintw(i + 5, offset, " \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  ");
 	mvprintw(i + 10, (Level::getWidth() - 11) / 2, "Score: %i", Level::getPlayer()->getScore());
 	refresh();
-	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	getch();
 }
-/*
-0  _____                         ____                 
-1 / ____|                       / __ \                
-2| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ 
-3| | |_ |/ _` | '_ ` _ \ / _ \ | |  | \ \ / / _ \ '__|
-4| |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |   
-5 \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|   
-*/
+
+void	Level::_setHighscore()
+{
+	std::ifstream	file("HIGHSCORE.txt");
+
+	if (0 == file)
+	{
+		Level::_highscore = 0;
+		return ;
+	}
+	file >> Level::_highscore;
+	file.close();
+}
+
+void	Level::_saveHighscore()
+{
+	std::ofstream	file("HIGHSCORE.txt");
+
+	if (Level::getPlayer()->getScore() > Level::_highscore)
+		file << Level::getPlayer()->getScore();
+
+	file.close();
+}
