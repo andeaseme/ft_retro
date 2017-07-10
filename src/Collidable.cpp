@@ -162,11 +162,8 @@ void			Collidable::move()
 				attron(COLOR_PAIR(5));
 				break ;
 			case 'Y' :
-				attron(COLOR_PAIR(4));
-				break ;
+			case '@' :
 			case '.' :
-				attron(COLOR_PAIR(4));
-				break ;
 			case 'W' :
 				attron(COLOR_PAIR(4));
 				break ;
