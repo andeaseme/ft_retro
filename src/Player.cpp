@@ -6,7 +6,7 @@ Player::Player() : Collidable::Collidable(
 		3 * Level::getHeight() / 4
 	)
 {
-	this->_sprite = 'P';
+	this->_sprite = 'A';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
 	this->_damage = 2;

@@ -186,12 +186,13 @@ void			Level::cleanupObjects()
 		}
 }
 
-void			Level::render()
+void			Level::render(int frame)
 {
 	_win_resize();
-	_addBorder(); //patch
+	_addBorder();
 	attron(COLOR_PAIR(2));
-	mvprintw(0, BORDER_W, "High Score: %-10i Score: %-10i Lives: %-10i", Level::_highscore, Level::_player->getScore(), Level::_player->getLives());
+	mvprintw(0, BORDER_W, "High Score: %-10i Score: %-10i Lives: %-10i Time: %-10i",
+		Level::_highscore, Level::_player->getScore(), Level::_player->getLives(), frame / 20);
 	attron(COLOR_PAIR(1));
 	refresh();
 }
@@ -228,7 +229,7 @@ void			Level::loop()
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
-		Level::render();
+		Level::render(i);
 		std::this_thread::sleep_for(std::chrono::milliseconds(25));
 	}
 }
@@ -302,7 +303,7 @@ void	Level::_endScreen(void)
 	mvprintw(i + 5, offset, " \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  ");
 	mvprintw(i + 10, (Level::getWidth() - 11) / 2, "Score: %i", Level::getPlayer()->getScore());
 	refresh();
-	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	getch();
 }
 

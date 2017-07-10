@@ -15,7 +15,6 @@
 # define ROUND(x) (floor(x + 0.5))
 
 # define EMPTYSPACE ' '
-# define DEATHSPACE '*'
 
 # define DEBUG(i, x, y) mvprintw(i, Level::getWidth() + BORDER_W * 2, "%-30s: %-10i", x, y)
 
@@ -42,7 +41,7 @@ public:
 	static void			updatePlayer();
 	static void			updateObjects();
 	static void			cleanupObjects();
-	static void			render();
+	static void			render(int frame);
 	static void			loop();
 
 private:
