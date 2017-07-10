@@ -7,7 +7,7 @@ Weapon::Weapon(void)
 	_cooldown = 4;
 	_count = _cooldown;
 	_autofire = true;
-	_bulletCount = 1;
+	_bulletCount = 8;
 }
 
 Weapon::Weapon(Weapon const &ref)
@@ -58,7 +58,7 @@ void		Weapon::upPower()
 	else if (this->_bulletCount < 7)
 	{
 		this->_bulletCount++;
-		this->_cooldown += this->_bulletCount * 1.5 + 3;
+		this->_cooldown += this->_bulletCount + 1;
 	}
 }
 

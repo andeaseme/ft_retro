@@ -3,7 +3,7 @@
 
 bool			PWeapon::attack(float x, float y)
 {
-	Collidable	*a, *b, *c, *d, *e, *f, *g;
+	Collidable	*a, *b, *c, *d, *e, *f, *g, *h;
 	if (false == _autofire)
 		return (false);
 	if (_count < _cooldown) //some condition
@@ -59,6 +59,20 @@ bool			PWeapon::attack(float x, float y)
 			f->setSpeed(-0.3, -1.0);
 			g = new Bullet(x + 3, y - 2);
 			g->setSpeed(0.3, -1.0);
+			break;
+		case 8:
+			a = new Bullet(x - 2, y - 2);
+			b = new Bullet(x + 2, y - 2);
+			c = new Bullet(x - 1, y - 3);
+			d = new Bullet(x + 1, y - 3);
+			e = new Bullet(x - 5, y - 1);
+			e->setSpeed(0.25, -1.0);
+			f = new Bullet(x + 5, y - 1);
+			f->setSpeed(-0.25, -1.0);
+			g = new Bullet(x - 6, y - 1);
+			g->setSpeed(0.25, -1.0);
+			h = new Bullet(x + 6, y - 1);
+			h->setSpeed(-0.25, -1.0);
 			break;
 	}
 	return (true);

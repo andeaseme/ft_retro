@@ -32,6 +32,8 @@ public:
 	float			getDX() const;
 	float			getDY() const;
 	bool			isReady() const;
+	bool			isEnemy() const;
+	bool			isKillable() const;
 
 	virtual void	move();
 	virtual void	collide(Collidable *ref);
@@ -50,6 +52,8 @@ protected:
 	float			_dx;
 	float			_dy;
 	bool			_ready; // Determines if it can be rendered / moved. Fixed by setLocation + setSprite
+	bool			_enemy;
+	bool			_killable;
 };
 
 #endif

@@ -8,6 +8,7 @@ Enemy::Enemy() : Collidable::Collidable(0, 0)
 	this->setSpeed(0.0, 0.3);
 	this->_wep = 0;
 	this->_damage = 1;
+	this->_enemy = true;
 }
 
 Enemy::Enemy(float const x, float const y) :
@@ -17,13 +18,14 @@ Enemy::Enemy(float const x, float const y) :
 	this->setSpeed(0.0, 0.3);
 	this->_wep = 0;
 	this->_damage = 1;
+	this->_enemy = true;
 }
 
 Enemy::~Enemy()
 {
-	if (Level::getPlace(ROUND(this->_x), ROUND(this->_y))
-		&& std::rand() % 6 == 0)
-		PowerUp *power = new PowerUp(this->_x, this->_y + 1);
+	if (Level::getPlace(ROUND(this->_x), ROUND(this->_y + 1))
+		&& std::rand() % 5 == 0)
+		PowerUp *power = new PowerUp(ROUND(this->_x), ROUND(this->_y + 1));
 }
 
 Weapon			*Enemy::getWeapon()

@@ -6,9 +6,11 @@ PowerUp::PowerUp(float const x, float const y) :
 	Collidable::Collidable(x, y)
 {
 	this->_sprite = '+';
-	this->setSpeed(0.0, 0.0);
+	this->setSpeed(0.0, +0.18);
 	this->_damage = 0;
 	this->_hp = 1;
+	this->_enemy = true;
+	this->_killable = true;
 }
 
 int				PowerUp::getCollideDamage() const

@@ -14,6 +14,7 @@ Collidable::Collidable()
 	this->_dx = 0;
 	this->_dy = 0;
 	this->_ready = false;
+	this->_killable = false;
 	Level::addObject(this);
 }
 
@@ -32,6 +33,7 @@ Collidable::Collidable(float const x, float const y)
 	this->_dx = 0;
 	this->_dy = 0;
 	this->_ready = true;
+	this->_killable = false;
 	Level::addObject(this);
 }
 
@@ -138,6 +140,16 @@ bool			Collidable::isReady() const
 	return this->_ready;
 }
 
+bool			Collidable::isEnemy() const
+{
+	return this->_enemy;
+}
+
+bool			Collidable::isKillable() const
+{
+	return this->_killable;
+}
+
 void			Collidable::move()
 {
 	int			prevX, prevY;
@@ -151,7 +163,7 @@ void			Collidable::move()
 	this->_y += this->_dy;
 	tx = this->_x;
 	ty = this->_y;
-	if (prevX != (int)ROUND(this->_x) || prevY != (int)ROUND(this->_y) || this->_sprite == '+')
+	if (prevX != (int)ROUND(this->_x) || prevY != (int)ROUND(this->_y))
 	{
 		attron(COLOR_PAIR(1));
 		ADDCH(prevY, prevX, EMPTYSPACE);
@@ -178,6 +190,12 @@ void			Collidable::move()
 void			Collidable::collide(Collidable *ref)
 {
 	attron(COLOR_PAIR(1));
+	if ((this->_enemy && ref->isEnemy())
+		|| (this->_killable && ref->isKillable()))
+	{
+		this->move();
+		return;
+	}
 	this->takeCollideDamage(ref->getCollideDamage());
 	ref->takeCollideDamage(this->getCollideDamage());
 	if (this->getHP() != 0 && ref->getHP() == 0)
