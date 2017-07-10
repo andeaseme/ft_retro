@@ -34,5 +34,5 @@ void			Enemy::move()
 {
 	Collidable::move();
 	if (this->_wep)
-		this->_wep->attack(this->_x, this->_y - 1);
+		this->_wep->attack(this->_x, this->_y + 5);
 }

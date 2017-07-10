@@ -177,7 +177,7 @@ void			Level::loop()
 	while (++i)
 	{
 		if (0 == i % 10)
-			e = new Enemy(std::rand() % Level::getWidth(), 0); //test enemy
+			e = new YEnemy(std::rand() % Level::getWidth(), 0); //test enemy
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
