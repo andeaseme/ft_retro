@@ -5,6 +5,7 @@
 # include <ncurses.h>
 # include "Player.h"
 # include "Enemy.h"
+# include "YEnemy.h"
 # include "PowerUp.h"
 
 # define BORDER_W 2
@@ -15,7 +16,7 @@
 # define EMPTYSPACE ' '
 # define DEATHSPACE '*'
 
-# define DEBUG(x) mvprintw(0, Level::getWidth() + BORDER_W * 2, "%-50s", x)
+# define DEBUG(i, x, y) mvprintw(i, Level::getWidth() + BORDER_W * 2, "%-30s: %-10i", x, y)
 
 class					Level
 {

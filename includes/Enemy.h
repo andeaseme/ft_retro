@@ -18,7 +18,7 @@ public:
 
 	void			move();
 
-private:
+protected:
 	Weapon			*_wep;
 };
 

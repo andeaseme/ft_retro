@@ -42,7 +42,7 @@ void			Enemy::switchWeapon(Weapon *ptr)
 
 void			Enemy::move()
 {
-	Collidable::move();
+	this->Collidable::move();
 	if (this->_wep)
-		this->_wep->attack(this->_x, this->_y - 1);
+		this->_wep->attack(ROUND(this->_x), ROUND(this->_y) + 1);
 }

@@ -192,13 +192,25 @@ void			Level::render()
 void			Level::loop()
 {
 	int			i;
+	int			e_rate, y_rate;
 
-	Collidable 	*e;
+	Collidable 	*e, *y;
+	e_rate = 14;
+	y_rate = 100;
 	i = 0;
 	while (++i)
 	{
-		if (0 == i % 15)
+		if (i % e_rate == 0)
 			e = new Enemy(std::rand() % Level::getWidth(), 0); //test enemy
+		if (i % y_rate == 0)
+			y = new YEnemy(std::rand() % Level::getWidth(), 0);
+		if (i % 150 == 0)
+		{
+			if (e_rate > 3)
+				e_rate--;
+			if (y_rate > 10)
+				y_rate -= 2;
+		}
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
