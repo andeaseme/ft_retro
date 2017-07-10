@@ -165,6 +165,7 @@ void			Level::cleanupObjects()
 				ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
 				if (Level::getPlayer()->getLives() <= 0)
 				{
+					Level::_endScreen();
 					endwin();
 					std::cout << "Game Over!" << std::endl;
 					std::exit(1);
@@ -271,3 +272,33 @@ void	Level::_startScreen(void)
 	refresh();
 	getch();
 }
+
+void	Level::_endScreen(void)
+{
+	int		offset;
+	int		i;
+
+	nodelay(stdscr, false);
+	i = Level::getHeight() / 3;
+	offset = (Level::getWidth() - 53) / 2;
+	clear();
+	attron(COLOR_PAIR(1));
+	mvprintw(i    , offset, "  _____                         ____                 ");
+	mvprintw(i + 1, offset, " / ____|                       / __ \\                ");
+	mvprintw(i + 2, offset, "| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __");
+	mvprintw(i + 3, offset, "| | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__|");
+	mvprintw(i + 4, offset, "| |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |  ");
+	mvprintw(i + 5, offset, " \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  ");
+	mvprintw(i + 10, (Level::getWidth() - 11) / 2, "Score: %i", Level::getPlayer()->getScore());
+	refresh();
+	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+	getch();
+}
+/*
+0  _____                         ____                 
+1 / ____|                       / __ \                
+2| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ 
+3| | |_ |/ _` | '_ ` _ \ / _ \ | |  | \ \ / / _ \ '__|
+4| |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |   
+5 \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|   
+*/

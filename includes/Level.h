@@ -55,6 +55,7 @@ private:
 	static void			_addBorder();
 	static void			_win_resize();
 	static void			_startScreen();
+	static void			_endScreen();
 };
 
 #endif
