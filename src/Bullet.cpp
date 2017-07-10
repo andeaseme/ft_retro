@@ -70,7 +70,7 @@ void			Bullet::move()
 				ox = 0.36;
 		}
 		if (ABS(_dx) < 1)
-			_dx = 0;
+			_dx = ox / 1.2;
 		else
 			_dx = ox;
 		_dy = oy;

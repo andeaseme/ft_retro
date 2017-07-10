@@ -16,7 +16,7 @@ public:
 	Weapon			*getWeapon();
 	void			switchWeapon(Weapon *ptr);
 
-	void			move();
+	virtual void	move();
 
 protected:
 	Weapon			*_wep;
