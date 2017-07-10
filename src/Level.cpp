@@ -9,7 +9,7 @@ Player			*Level::_player = 0;
 int				Level::_width = 81;
 int				Level::_height = 71;
 Place			**Level::_map = new Place*[Level::_width * Level::_height];
-Collidable		**Level::_objects = new Collidable*[500];
+Collidable		**Level::_objects = new Collidable*[1200];
 int				Level::_numObjects = 0;
 
 Level::Level()
@@ -49,9 +49,10 @@ void			Level::init()
 	init_pair(1, COLOR_WHITE, COLOR_BLACK); //default
 	init_pair(2, COLOR_BLACK, COLOR_WHITE); //border
 	init_pair(3, COLOR_CYAN, COLOR_BLACK); //player
-	init_pair(4, COLOR_RED, COLOR_BLACK); //enemy
+	init_pair(4, COLOR_RED, COLOR_BLACK); //W enemy
 	init_pair(5, COLOR_YELLOW, COLOR_BLACK); //bullet
-	init_pair(6, COLOR_MAGENTA, COLOR_BLACK); //other enemy
+	init_pair(6, COLOR_MAGENTA, COLOR_BLACK); //Y enemy
+	init_pair(7, COLOR_GREEN, COLOR_BLACK); //Z enemy
 	_startScreen();
 	_addBorder();
 	attron(COLOR_PAIR(1));
@@ -194,25 +195,31 @@ void			Level::render()
 void			Level::loop()
 {
 	int			i;
-	int			e_rate, y_rate, y_spawn;
+	int			w_rate, y_rate, y_spawn, z_rate, z_spawn;
 
-	Collidable 	*e, *y;
-	e_rate = 14;
+	Collidable 	*w, *y, *z;
+	w_rate = 17;
 	y_rate = 81;
 	y_spawn = 300;
+	z_rate = 41;
+	z_spawn = 500;
 	i = 0;
 	while (++i)
 	{
-		if (i % e_rate == 0)
-			e = new Enemy(std::rand() % Level::getWidth(), 0); //test enemy
+		if (i % w_rate == 0)
+			w = new Enemy(std::rand() % (Level::getWidth() - 1) + 1, 0); //test enemy
 		if (i % y_rate == 0 && i > y_spawn)
-			y = new YEnemy(std::rand() % Level::getWidth(), 0);
+			y = new YEnemy(std::rand() % (Level::getWidth() - 1) + 1, 0);
+		if (i % z_rate == 0 && i > z_spawn)
+			z = new ZEnemy(std::rand() % (Level::getWidth() - 1) + 1, 0);
 		if (i % 600 == 0)
 		{
-			if (e_rate > 4)
-				e_rate--;
-			if (y_rate > 10 && i > y_spawn)
+			if (w_rate > 5)
+				w_rate--;
+			if (y_rate > 15 && i > y_spawn)
 				y_rate -= 2;
+			if (z_rate > 10 && i > z_spawn)
+				z_rate -= 2;
 		}
 		Level::updatePlayer();
 		Level::updateObjects();

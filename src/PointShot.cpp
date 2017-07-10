@@ -3,7 +3,7 @@
 
 PointShot::PointShot(void) : EWeapon::EWeapon()
 {
-	_cooldown = 100;
+	_cooldown = 84;
 	_count = _cooldown;
 	_sprite = '*';
 }

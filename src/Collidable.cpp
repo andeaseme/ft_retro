@@ -182,6 +182,9 @@ void			Collidable::move()
 			case 'W':
 				attron(COLOR_PAIR(4));
 				break ;
+			case 'Z':
+				attron(COLOR_PAIR(7));
+				break ;
 			case '+':
 				attron(COLOR_PAIR(3));
 				break ;
