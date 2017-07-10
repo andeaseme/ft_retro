@@ -203,11 +203,11 @@ void			Level::loop()
 	int			w_rate, y_rate, y_spawn, z_rate, z_spawn;
 
 	Collidable 	*w, *y, *z;
-	w_rate = 17;
-	y_rate = 81;
-	y_spawn = 300;
-	z_rate = 41;
-	z_spawn = 400;
+	w_rate = 18;
+	y_rate = 88;
+	y_spawn = 500;
+	z_rate = 51;
+	z_spawn = 700;
 	i = 0;
 	while (++i)
 	{
@@ -217,7 +217,7 @@ void			Level::loop()
 			y = new YEnemy(std::rand() % (Level::getWidth() - 1) + 1, 0);
 		if (i % z_rate == 0 && i > z_spawn)
 			z = new ZEnemy(std::rand() % (Level::getWidth() - 1) + 1, 0);
-		if (i % 800 == 0)
+		if (i % 900 == 0)
 		{
 			if (w_rate > 5)
 				w_rate--;
