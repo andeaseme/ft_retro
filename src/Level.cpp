@@ -124,15 +124,19 @@ void			Level::updatePlayer()
 		switch (ch)
 		{
 			case 'w':
+			case KEY_UP:
 				P1->setLocation(P1->getX(), ROUND(P1->getY() - 1.0));
 				break;
 			case 'a':
+			case KEY_LEFT:
 				P1->setLocation(ROUND(P1->getX() - 1.0), P1->getY());
 				break;
 			case 's':
+			case KEY_DOWN:
 				P1->setLocation(P1->getX(), ROUND(P1->getY() + 1.0));
 				break;
 			case 'd':
+			case KEY_RIGHT:
 				P1->setLocation(ROUND(P1->getX() + 1.0), P1->getY());
 				break;
 			case ' ':
@@ -181,13 +185,13 @@ void			Level::loop()
 	i = 0;
 	while (++i)
 	{
-		if (0 == i % 10)
+		if (0 == i % 15)
 			e = new Enemy(std::rand() % Level::getWidth(), 0); //test enemy
 		Level::updatePlayer();
 		Level::updateObjects();
 		Level::cleanupObjects();
 		Level::render();
-		std::this_thread::sleep_for(std::chrono::milliseconds(33));
+		std::this_thread::sleep_for(std::chrono::milliseconds(25));
 	}
 }
 
