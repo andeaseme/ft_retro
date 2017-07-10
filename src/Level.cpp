@@ -51,6 +51,7 @@ void			Level::init()
 	init_pair(3, COLOR_CYAN, COLOR_BLACK); //player
 	init_pair(4, COLOR_RED, COLOR_BLACK); //enemy
 	init_pair(5, COLOR_YELLOW, COLOR_BLACK); //bullet
+	init_pair(6, COLOR_MAGENTA, COLOR_BLACK); //other enemy
 	_startScreen();
 	_addBorder();
 	attron(COLOR_PAIR(1));
@@ -184,7 +185,7 @@ void			Level::render()
 	_win_resize();
 	_addBorder(); //patch
 	attron(COLOR_PAIR(2));
-	mvprintw(0, BORDER_W, "Score: %10i", Level::_player->getScore());
+	mvprintw(0, BORDER_W, "Score: %-10i Lives: %-10i", Level::_player->getScore(), Level::_player->getLives());
 	attron(COLOR_PAIR(1));
 	refresh();
 }
@@ -192,23 +193,24 @@ void			Level::render()
 void			Level::loop()
 {
 	int			i;
-	int			e_rate, y_rate;
+	int			e_rate, y_rate, y_spawn;
 
 	Collidable 	*e, *y;
 	e_rate = 14;
-	y_rate = 100;
+	y_rate = 81;
+	y_spawn = 300;
 	i = 0;
 	while (++i)
 	{
 		if (i % e_rate == 0)
 			e = new Enemy(std::rand() % Level::getWidth(), 0); //test enemy
-		if (i % y_rate == 0)
+		if (i % y_rate == 0 && i > y_spawn)
 			y = new YEnemy(std::rand() % Level::getWidth(), 0);
-		if (i % 150 == 0)
+		if (i % 600 == 0)
 		{
-			if (e_rate > 3)
+			if (e_rate > 4)
 				e_rate--;
-			if (y_rate > 10)
+			if (y_rate > 10 && i > y_spawn)
 				y_rate -= 2;
 		}
 		Level::updatePlayer();
