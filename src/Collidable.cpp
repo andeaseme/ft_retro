@@ -151,7 +151,7 @@ void			Collidable::move()
 	this->_y += this->_dy;
 	tx = this->_x;
 	ty = this->_y;
-	if (prevX != (int)ROUND(this->_x) || prevY != (int)ROUND(this->_y))
+	if (prevX != (int)ROUND(this->_x) || prevY != (int)ROUND(this->_y) || this->_sprite == '+')
 	{
 		attron(COLOR_PAIR(1));
 		ADDCH(prevY, prevX, EMPTYSPACE);
@@ -169,6 +169,9 @@ void			Collidable::move()
 				break ;
 			case 'W' :
 				attron(COLOR_PAIR(4));
+				break ;
+			case '+' :
+				attron(COLOR_PAIR(3));
 				break ;
 		}
 		if (0 != this->_hp)
@@ -190,9 +193,11 @@ void			Collidable::collide(Collidable *ref)
 	}
 	else if (this->getHP() == 0 && ref->getHP() == 0)
 	{
-		ADDCH(ROUND(this->_y), ROUND(this->_x), DEATHSPACE);
+		ADDCH(ROUND(this->_y), ROUND(this->_x), EMPTYSPACE);
 		Level::getPlayer()->addScore();
 	}
+	else
+		ADDCH(ROUND(this->_y), ROUND(this->_x), EMPTYSPACE);
 }
 
 int				Collidable::getCollideDamage() const

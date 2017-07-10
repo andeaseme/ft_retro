@@ -6,6 +6,7 @@
 # include "Player.h"
 # include "Enemy.h"
 # include "YEnemy.h"
+# include "PowerUp.h"
 
 # define BORDER_W 2
 # define BORDER_H 1

@@ -13,6 +13,9 @@ public:
 	Player(float const x, float const y);
 
 	Weapon			*getWeapon();
+	int				getLives() const;
+	void			loseLife();
+	void			gainLife();
 	void			switchWeapon(Weapon *ptr);
 	int				getScore() const;
 	void			addScore();
@@ -21,6 +24,7 @@ public:
 private:
 	Weapon			*_wep;
 	int				_score;
+	int				_lives;
 };
 
 #endif

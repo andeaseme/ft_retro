@@ -17,9 +17,12 @@ public:
 	virtual void		setSpeed(float x, float y);
 	void				setSprite(char sprite);
 	void				flipAutofire(void);
+	void				upPower();
+	void				resetPower();
 
 protected:
 	int					_cooldown;
+	int					_bulletCount;
 	int					_count;
 	bool				_autofire;
 	float				_dx;
