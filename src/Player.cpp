@@ -6,12 +6,14 @@ Player::Player() : Collidable::Collidable(
 		3 * Level::getHeight() / 4
 	)
 {
-	this->_sprite = 'P';
+	this->_sprite = 'A';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
 	this->_damage = 2;
 	this->_score = 0;
 	this->_lives = 3;
+	this->_enemy = false;
+	this->_killable = false;
 }
 
 Player::Player(float const x, float const y)
