@@ -185,7 +185,7 @@ void			Collidable::move()
 			case 'Z':
 				attron(COLOR_PAIR(7));
 				break ;
-			case '+':
+			case '$':
 				attron(COLOR_PAIR(3));
 				break ;
 		}

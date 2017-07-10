@@ -27,9 +27,10 @@ void			ZEnemy::move()
 	float		dx;
 
 	dy = ROUND(Level::getPlayer()->getY() - this->_y);
+	dx = 0;
 	if (this->_dy != 0.0)
 	{
-		if (dy == 0)
+		if (dy <= 0)
 		{
 			this->_dy = 0;
 			dx = 0.6;
