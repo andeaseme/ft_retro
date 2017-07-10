@@ -198,7 +198,6 @@ void			Collidable::move()
 
 void			Collidable::collide(Collidable *ref)
 {
-	mvprintw(1, Level::getWidth() + BORDER_W * 2, "Collision with Char %c and %c", this->_sprite, ref->getSprite());
 	attron(COLOR_PAIR(1));
 	if ((this->_enemy && ref->isEnemy())
 		|| (this->_killable && ref->isKillable())

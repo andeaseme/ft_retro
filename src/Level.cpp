@@ -207,7 +207,7 @@ void			Level::loop()
 	y_rate = 81;
 	y_spawn = 300;
 	z_rate = 41;
-	z_spawn = 500;
+	z_spawn = 400;
 	i = 0;
 	while (++i)
 	{
@@ -217,7 +217,7 @@ void			Level::loop()
 			y = new YEnemy(std::rand() % (Level::getWidth() - 1) + 1, 0);
 		if (i % z_rate == 0 && i > z_spawn)
 			z = new ZEnemy(std::rand() % (Level::getWidth() - 1) + 1, 0);
-		if (i % 600 == 0)
+		if (i % 800 == 0)
 		{
 			if (w_rate > 5)
 				w_rate--;

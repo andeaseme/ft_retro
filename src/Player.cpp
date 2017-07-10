@@ -12,6 +12,8 @@ Player::Player() : Collidable::Collidable(
 	this->_damage = 2;
 	this->_score = 0;
 	this->_lives = 3;
+	this->_enemy = false;
+	this->_killable = false;
 }
 
 Player::Player(float const x, float const y)
