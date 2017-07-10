@@ -48,6 +48,7 @@ Collidable::~Collidable()
 	if (this->_location)
 		this->_location->setObj(0);
 	this->_location = 0;
+	ADDCH(ROUND(this->_y), ROUND(this->_x), EMPTYSPACE);
 	this->_ready = false;
 }
 
@@ -175,7 +176,9 @@ void			Collidable::move()
 				break ;
 			case 'Y':
 			case '@':
-			case '.':
+			case '*':
+				attron(COLOR_PAIR(6));
+				break ;
 			case 'W':
 				attron(COLOR_PAIR(4));
 				break ;
@@ -195,7 +198,11 @@ void			Collidable::collide(Collidable *ref)
 	mvprintw(1, Level::getWidth() + BORDER_W * 2, "Collision with Char %c and %c", this->_sprite, ref->getSprite());
 	attron(COLOR_PAIR(1));
 	if ((this->_enemy && ref->isEnemy())
-		|| (this->_killable && ref->isKillable()))
+		|| (this->_killable && ref->isKillable())
+		|| (!this->_enemy && this->_killable
+			&& !ref->isEnemy() && !ref->isKillable())
+		|| (!ref->isEnemy() && ref->isKillable()
+			&& !this->_enemy && !this->_killable))
 	{
 		this->move();
 		return;

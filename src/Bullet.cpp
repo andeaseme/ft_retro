@@ -9,6 +9,7 @@ Bullet::Bullet(void) : Collidable::Collidable()
 	this->_damage = 1;
 	this->_enemy = false;
 	this->_killable = true;
+	this->_homing = false;
 }
 
 Bullet::Bullet(float const x, float const y) :
@@ -19,6 +20,7 @@ Bullet::Bullet(float const x, float const y) :
 	this->_damage = 1;
 	this->_enemy = false;
 	this->_killable = true;
+	this->_homing = false;
 }
 
 Bullet::Bullet(Bullet const &ref)
@@ -51,23 +53,26 @@ void			Bullet::move()
 				ox = -0.5;
 			else if (_dx > 0)
 				ox = 0.5;
-			if (_dy < 0)
-				oy = -0.18;
-			else if (_dy > 0)
-				oy = 0.18;
+			if (_dy > 4)
+				oy = 0.6;
+			else
+				oy = 1.0;
 		}
 		else
 		{
-			if (_dy < 0)
-				oy = -0.5;
-			else if (_dy > 0)
-				oy = 0.5;
+			if (_dy > 4)
+				oy = 0.6;
+			else
+				oy = 1.0;
 			if (_dx < 0)
-				ox = -0.18;
+				ox = -0.36;
 			else if (_dx > 0)
-				ox = 0.18;
+				ox = 0.36;
 		}
-		_dx = ox;
+		if (ABS(_dx) < 1)
+			_dx = 0;
+		else
+			_dx = ox;
 		_dy = oy;
 	}
 	this->Collidable::move();

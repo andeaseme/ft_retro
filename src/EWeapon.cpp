@@ -25,6 +25,7 @@ bool		EWeapon::attack(float x, float y)
 	}
 	a = new Bullet(x, y);
 	a->setHoming(true);
+	a->setSprite(this->_sprite);
 	_count = 0;
 	return (true);
 }

@@ -24,7 +24,7 @@ Enemy::Enemy(float const x, float const y) :
 Enemy::~Enemy()
 {
 	if (Level::getPlace(ROUND(this->_x), ROUND(this->_y + 1))
-		&& std::rand() % 5 == 0)
+		&& std::rand() % 3 == 0)
 		PowerUp *power = new PowerUp(ROUND(this->_x), ROUND(this->_y + 1));
 }
 
