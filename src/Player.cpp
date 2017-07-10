@@ -9,8 +9,9 @@ Player::Player() : Collidable::Collidable(
 	this->_sprite = 'P';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
-	this->_damage = 1;
+	this->_damage = 2;
 	this->_score = 0;
+	this->_lives = 3;
 }
 
 Player::Player(float const x, float const y)
@@ -19,8 +20,9 @@ Player::Player(float const x, float const y)
 	this->_sprite = 'A';
 	this->setSpeed(0.0, 0.0);
 	this->_wep = 0;
-	this->_damage = 1;
+	this->_damage = 2;
 	this->_score = 0;
+	this->_lives = 3;
 }
 
 Weapon			*Player::getWeapon()
@@ -33,6 +35,22 @@ void			Player::switchWeapon(Weapon *ptr)
 	if (this->_wep)
 		delete this->_wep;
 	this->_wep = ptr;
+}
+
+int				Player::getLives() const
+{
+	return this->_lives;
+}
+
+void			Player::loseLife()
+{
+	this->_lives--;
+	this->_hp = 1;
+}
+
+void			Player::gainLife()
+{
+	this->_lives++;
 }
 
 void			Player::move()

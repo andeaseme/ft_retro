@@ -15,9 +15,12 @@ public:
 	Weapon				&operator=(Weapon const &rhs);
 	int					getCD(void) const;
 	void				flipAutofire(void);
+	void				upPower();
+	void				resetPower();
 
 protected:
 	int					_cooldown;
+	int					_bulletCount;
 	int					_count;
 	bool				_autofire;
 };

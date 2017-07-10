@@ -11,6 +11,7 @@ public:
 
 	Enemy();
 	Enemy(float const x, float const y);
+	~Enemy();
 
 	Weapon			*getWeapon();
 	void			switchWeapon(Weapon *ptr);

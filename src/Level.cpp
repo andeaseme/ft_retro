@@ -114,37 +114,29 @@ void			Level::updatePlayer()
 	ch = getch();
 	attron(COLOR_PAIR(3));
 	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
-	if (0 == P1 || 0 == P1->getHP())
+	switch (ch)
 	{
-		attron(COLOR_PAIR(2));
-		mvprintw(0, 0, "GAME OVER !");
+		case 'w':
+		case KEY_UP:
+			P1->setLocation(P1->getX(), ROUND(P1->getY() - 1.0));
+			break;
+		case 'a':
+		case KEY_LEFT:
+			P1->setLocation(ROUND(P1->getX() - 1.0), P1->getY());
+			break;
+		case 's':
+		case KEY_DOWN:
+			P1->setLocation(P1->getX(), ROUND(P1->getY() + 1.0));
+			break;
+		case 'd':
+		case KEY_RIGHT:
+			P1->setLocation(ROUND(P1->getX() + 1.0), P1->getY());
+			break;
+		case ' ':
+			P1->getWeapon()->flipAutofire();
+			break;
 	}
-	else
-	{
-		switch (ch)
-		{
-			case 'w':
-			case KEY_UP:
-				P1->setLocation(P1->getX(), ROUND(P1->getY() - 1.0));
-				break;
-			case 'a':
-			case KEY_LEFT:
-				P1->setLocation(ROUND(P1->getX() - 1.0), P1->getY());
-				break;
-			case 's':
-			case KEY_DOWN:
-				P1->setLocation(P1->getX(), ROUND(P1->getY() + 1.0));
-				break;
-			case 'd':
-			case KEY_RIGHT:
-				P1->setLocation(ROUND(P1->getX() + 1.0), P1->getY());
-				break;
-			case ' ':
-				P1->getWeapon()->flipAutofire();
-				break;
-		}
-		ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
-	}
+	ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
 	attron(COLOR_PAIR(1));
 }
 
@@ -160,13 +152,29 @@ void			Level::cleanupObjects()
 	for (int i = 0; i < Level::_numObjects; ++i)
 		if (Level::_objects[i]->getHP() == 0)
 		{
-	if (0 == Level::getPlace(ROUND(_objects[i]->getX()),
-					ROUND(_objects[i]->getY())))
+			ADDCH(ROUND(_objects[i]->getX()),
+				ROUND(_objects[i]->getY()), EMPTYSPACE);
+			if (Level::_objects[i] != Level::getPlayer())
+				Level::deleteObject(Level::_objects[i]);
+			else
 			{
-				ADDCH(ROUND(_objects[i]->getX()), 
-					ROUND(_objects[i]->getY()), EMPTYSPACE);
+				Level::getPlayer()->loseLife();
+				attron(COLOR_PAIR(3));
+				ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), EMPTYSPACE);
+				if (Level::getPlayer()->getLives() <= 0)
+				{
+					endwin();
+					std::cout << "Game Over!" << std::endl;
+					std::exit(1);
+				}
+				else
+				{
+					Level::getPlayer()->setLocation( Level::getWidth() / 2,
+						3 * Level::getHeight() / 4 );
+				}
+				ADDCH(ROUND(P1->getY()), ROUND(P1->getX()), P1->getSprite());
+				attron(COLOR_PAIR(1));
 			}
-			Level::deleteObject(Level::_objects[i]);
 		}
 }
 
