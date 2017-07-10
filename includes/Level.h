@@ -52,11 +52,14 @@ private:
 	static Place		**_map;
 	static Collidable	**_objects;
 	static int			_numObjects;
+	static int			_highscore;
 
 	static void			_addBorder();
 	static void			_win_resize();
 	static void			_startScreen();
 	static void			_endScreen();
+	static void			_setHighscore();
+	static void			_saveHighscore();
 };
 
 #endif
