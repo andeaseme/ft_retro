@@ -3,6 +3,7 @@
 #include <thread>
 #include <math.h>
 #include "Level.h"
+#include "PWeapon.h"
 
 Player			*Level::_player = 0;
 int				Level::_width = 81;
@@ -36,7 +37,7 @@ void			Level::init()
 	for (int i = 0; i < 500; ++i)
 		Level::_objects[i] = 0;
 	Level::_player = new Player();
-	Level::_player->switchWeapon(new Weapon());
+	Level::_player->switchWeapon(new PWeapon());
 	initscr();
 	cbreak();
 	noecho();

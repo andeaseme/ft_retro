@@ -10,7 +10,7 @@ public:
 	Weapon(Weapon const &ref);
 	~Weapon();
 
-	bool				attack(float x, float y);
+	virtual bool		attack(float x, float y);
 
 	Weapon				&operator=(Weapon const &rhs);
 	int					getCD(void) const;
