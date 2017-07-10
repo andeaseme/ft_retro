@@ -15,6 +15,7 @@ public:
 	Weapon			*getWeapon();
 	void			switchWeapon(Weapon *ptr);
 	int				getScore() const;
+	void			addScore();
 	void			move();
 
 private:

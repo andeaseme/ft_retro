@@ -35,6 +35,16 @@ void			Player::switchWeapon(Weapon *ptr)
 	this->_wep = ptr;
 }
 
+int				Player::getScore() const
+{
+	return (this->_score);
+}
+
+void			Player::addScore()
+{
+	this->_score++;
+}
+
 void			Player::move()
 {
 	Collidable::move();

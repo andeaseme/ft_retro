@@ -185,6 +185,7 @@ void			Collidable::collide(Collidable *ref)
 	else if (this->getHP() == 0 && ref->getHP() == 0)
 	{
 		ADDCH(ROUND(this->_y), ROUND(this->_x), DEATHSPACE);
+		Level::getPlayer()->addScore();
 	}
 }
 

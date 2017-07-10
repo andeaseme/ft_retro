@@ -155,21 +155,16 @@ void			Level::cleanupObjects()
 	attron(COLOR_PAIR(1));
 	for (int i = 0; i < Level::_numObjects; ++i)
 		if (Level::_objects[i]->getHP() == 0)
-		{
-	if (0 == Level::getPlace(ROUND(_objects[i]->getX()),
-					ROUND(_objects[i]->getY())))
-			{
-				ADDCH(ROUND(_objects[i]->getX()), 
-					ROUND(_objects[i]->getY()), EMPTYSPACE);
-			}
 			Level::deleteObject(Level::_objects[i]);
-		}
 }
 
 void			Level::render()
 {
 	_win_resize();
 	_addBorder(); //patch
+	attron(COLOR_PAIR(2));
+	mvprintw(0, BORDER_W, "Score: %10i", Level::_player->getScore());
+	attron(COLOR_PAIR(1));
 	refresh();
 }
 
