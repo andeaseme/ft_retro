@@ -322,10 +322,10 @@ void	Level::_setHighscore()
 
 void	Level::_saveHighscore()
 {
+
+	if (Level::getPlayer()->getScore() <= Level::_highscore)
+		return ;
 	std::ofstream	file("HIGHSCORE.txt");
-
-	if (Level::getPlayer()->getScore() > Level::_highscore)
-		file << Level::getPlayer()->getScore();
-
+	file << Level::getPlayer()->getScore();
 	file.close();
 }
